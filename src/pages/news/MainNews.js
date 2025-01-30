@@ -10,7 +10,8 @@ const MainNewsList = () => {
  const [loading, setLoading] = useState(true);
  const [error, setError] = useState(null);
  const history = useHistory();
- const newsUrl = 'http://localhost:8080/news?pageSize=5&pageNumber=0';
+//  const newsUrl = 'http://localhost:8080/news?pageSize=5&pageNumber=0';
+ const newsUrl = 'https://074f-222-117-220-38.ngrok-free.app/news?pageSize=5&pageNumber=0';
 
  useEffect(() => {
    const fetchNews = async () => {
