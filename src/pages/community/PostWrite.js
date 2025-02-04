@@ -16,7 +16,7 @@ const WritePostPage = () => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
-    axios.defaults.baseURL = "http://localhost:8080";
+    axios.defaults.baseURL = process.env.BACKEND_URL;
   }, []);
 
   const handleSubmit = async () => {
