@@ -14,7 +14,7 @@ const PostUpdatePage = () => {
 
   // Axios 기본 설정
   useEffect(() => {
-    axios.defaults.baseURL = process.env.BACKEND_URL;
+    axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
   }, []);
 
   // 게시글 상세 정보 가져오기

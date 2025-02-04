@@ -29,7 +29,7 @@ const CommunityPage = () => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
-    axios.defaults.baseURL = process.env.BACKEND_URL;
+    axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
   }, []);
 
   // 데이터 요청 함수

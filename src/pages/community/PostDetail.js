@@ -23,7 +23,7 @@ const PostDetailPage = () => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
-    axios.defaults.baseURL = process.env.BACKEND_URL;
+    axios.defaults.baseURL = process.env.REACT_APP_REBACKEND_URL;
   }, []);
 
   // JWT 토큰 검증 및 디코딩 함수
