@@ -37,7 +37,7 @@ const CommunityPage = () => {
     if (isFetching.current) return; // 요청 중이라면 실행하지 않음
     isFetching.current = true;
     try {
-      const response = await axios.get("/posts", { params });
+      const response = await axios.get("/posts", { params, withCredentials: true, });
       setPosts(response.data.data.content || []);
       setTotalPages(response.data.data.totalPages || 1);
       setCurrentPage(params.pageNumber + 1); // 백엔드의 pageNumber(0-based)를 1-based로 변환
