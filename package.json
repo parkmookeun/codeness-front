@@ -17,7 +17,6 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^4.2.4"
   },
-  "proxy": "https://52.78.186.118:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -47,5 +46,6 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.0"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
