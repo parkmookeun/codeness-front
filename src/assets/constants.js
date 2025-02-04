@@ -1,0 +1,1 @@
+export const DEFAULT_PROFILE_IMAGE = "https://codeness.s3.ap-northeast-1.amazonaws.com/basic_profile.jpg"

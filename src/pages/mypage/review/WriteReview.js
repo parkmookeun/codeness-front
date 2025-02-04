@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { DEFAULT_PROFILE_IMAGE } from "../../../assets/constants";
+import api from "../../../api/axios";
 
 function WriteReview(){
     //상태 관리
@@ -9,18 +12,22 @@ function WriteReview(){
     const [mentorInfo, setMentorInfo] = useState(null); //멘토 프로필 주소, 멘토 닉네임, 멘토 공고 제목
     const [rating, setRating] = useState(0);
     const stars = [1, 2, 3, 4, 5];
+    const history = useHistory();
 
-     //토큰 가져오기
+    //토큰 가져오기
      const token = localStorage.getItem("jwtToken");
+
+    //location객체로 state 값 가져오기
+    const location = useLocation();
 
     //거래내역에서 후기 작성 누르면 받아올 데이터
     const response = {
         data: {
-            profileUrl : "https://codeness.s3.ap-northeast-1.amazonaws.com/Profile/1-Profile.png",
-            mentorNick : "김멘토1",
-            mentoringPost : "[한달 안에 파이썬 부시기]",
-            mentoringPostId : 1,
-            paymentHistoryId : 1,
+            profileUrl : location.state?.profileUrl ?? DEFAULT_PROFILE_IMAGE,
+            mentorNick : location.state?.mentorNick,
+            postTitle : location.state?.postTitle,
+            mentoringPostId : location.state?.mentoringPostId,
+            paymentHistoryId : location.state?.paymentHistoryId
         }
     }
 
@@ -33,7 +40,7 @@ function WriteReview(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const result = await axios.post(`http://localhost:8080/payment-history/${response.data.paymentHistoryId}/reviews`, 
+            const result = await api.post(`/payment-history/${response.data.paymentHistoryId}/reviews`, 
                 {
                     "mentoringPostId": response.data.mentoringPostId,
                       "content": content,
@@ -44,8 +51,13 @@ function WriteReview(){
                       "Content-Type": "application/json",
                       "Authorization": `Bearer ${token}`
                     },
-                    withCredentials: true, // CORS 요청에 credential 포함
+                    // withCredentials: true, // CORS 요청에 credential 포함
                   });
+
+            // 성공 알림 창
+            alert("후기가 등록되었습니다!");
+            //
+            history.push('/mypage/payment-history', { activeTab: 'payment-history' });
         }catch(error){
             console.error('리뷰 등록 실패:', error);
         }
@@ -84,7 +96,7 @@ function WriteReview(){
                     objectFit: "cover"
                 }}
                 />
-                <span>{response.data.mentorNick} {response.data.mentoringPost}</span></p>
+                <span>{response.data.mentorNick} {response.data.postTitle}</span></p>
                 <hr/>
                 <div>
                 {stars.map((star) => (

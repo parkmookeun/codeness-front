@@ -31,7 +31,7 @@ const MentorRecommendation = () => {
       history.push('/login');
     }
     setIsVisible(true);
-    fetchMentors();
+    fetchMentors();  
   };
 
   return (
@@ -52,9 +52,8 @@ const MentorRecommendation = () => {
           flexDirection: 'column',
           alignItems: 'center'
         }}>
-          {/* TODO: 나중에 김짱구가 아니라 내 이름이어야 함 */}
           <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white', marginBottom: '24px' }}>
-            김짱구님의 추천 멘토는?
+            나의 추천 멘토는?
           </h2>
           <div style={{ 
             display: 'grid',

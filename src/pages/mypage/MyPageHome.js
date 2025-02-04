@@ -1,5 +1,5 @@
 // AdminMyPageHome.js
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import MyPage from './profile/MyPage';
 import UserSchedule from "./schedule/UserSchedule";
 import DeleteUser from "./delete-user/DeleteUser";
@@ -9,12 +9,21 @@ import ChatLayout from './chat/ChatLayout';
 import MyMentoring from './my-mentoring/MyMentoring';
 import PaymentHistoryForMentee from "./payment-history/PaymentHistoryForMentee";
 import PaymentHistoryDetail from "./payment-history/PaymentHistoryDetail";
-
+import { useLocation } from 'react-router-dom';
 
 const MyPageHome = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const history = useHistory();
   const [selectedPaymentHistoryId, setSelectedPaymentHistoryId] = useState(null); // 선택된 결제 내역 ID 관리
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log('Location state:', location.state);
+    if (location.state?.activeTab) {
+      console.log('Setting active tab to:', location.state.activeTab);
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location]);
 
   const tabs = [
     {id: 'profile', label: '내 프로필'},
@@ -44,7 +53,7 @@ const MyPageHome = () => {
                   onClick={() => {
                     setActiveTab(tab.id);
                     setSelectedPaymentHistoryId(null); // 탭 전환 시 상세 보기 상태 초기화
-                    // window.history.pushState(null, '', `/mypage/${tab.id}`);
+                    history.push(`/mypage/${tab.id}`,{ activeTab: tab.id });
                   }}
                   style={{
                     padding: '10px',

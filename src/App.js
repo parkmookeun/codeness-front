@@ -29,6 +29,8 @@ import PaymentHistoryForMenteePage from "./pages/mypage/payment-history/PaymentH
 import PaymentHistoryDetailPage from "./pages/mypage/payment-history/PaymentHistoryDetail";
 import PostUpdatePage from "./pages/community/PostUpdate";
 import MentoringPaymentSuccessPage from "./pages/payment/MentoringPaymentSuccess";
+import ChatLayout from "./pages/mypage/chat/ChatLayout";
+import MyMentoring from "./pages/mypage/my-mentoring/MyMentoring";
 
 // 로그인이 필요한 페이지를 위한 Private Route
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -54,10 +56,7 @@ function App() {
           <Route path="/signup" component={SignUpPage} />
           <Route path="/community" component={CommunityPage} />
           <Route path="/news" component={NewsPage} />
-          <Route path="/mypage/payments/review/:paymentHistoryId" component={ViewReviewPage} />
-          <Route path="/mypage/payments/review" component={WriteReviewPage} />
-          <Route path="/main/news" component={MainNewsPage} />  {/* TODO: 나중에 삭제할 요소 */}
-          <Route path="/mypage/profile" component={MyPageHome} />
+          <Route path="/main/news" component={MainNewsPage} />
           <PrivateRoute path="/writePost" component={WritePostPage} />
           <Route path="/posts/:postId/update" component={PostUpdatePage} />
           <Route exact path="/posts/:postId" component={PostDetailPage} />
@@ -67,16 +66,23 @@ function App() {
           <Route path="/mentoring/:mentoringPostId" component={MentoringPostDetailPage} />
           <Route path="/mentoring" component={MentoringPostSearchPage} />
 
-          <PrivateRoute path="/profile" component={MyPage} />
+          <PrivateRoute path="/mypage" component={MyPageHome} />
+          <PrivateRoute exact path="/mypage/profile" component={MyPageHome} />
+          <PrivateRoute exact path="/mypage/chatting" component={ChatLayout} />
+          <PrivateRoute exact path="/mypage/schedule" component={UserSchedulePage} />
+          <PrivateRoute exact path="/mypage/payment-history/detail/:paymentHistoryId" component={PaymentHistoryDetailPage} />
+          <PrivateRoute exact path="/mypage/payments/review/:paymentHistoryId" component={ViewReviewPage} />
+          <PrivateRoute exact path="/mypage/payments/review" component={WriteReviewPage} />
+          <PrivateRoute exact path="/mypage/payment-history" component={PaymentHistoryForMenteePage} />
+          <PrivateRoute exact path="/mypage/my-mentoring" component={MyMentoring} />  
+
           <PrivateRoute path="/user/update" component={UserUpdatePage} />
           <PrivateRoute path="/user/mentor" component={MentorRequestPage} />
           <PrivateRoute path="/payment" component={MentoringPaymentPage} />
           <PrivateRoute path="/mentoring-post-form" component={MentoringPostFormPage} />
-          <Route path="/schedule" component={UserSchedulePage} />
+          
           <Route path="/delete-user" component={DeleteUserPage} />
           <Route path="/password-update" component={PasswordUpdate} />
-          <Route path="/mypage/payment-history/detail/:paymentHistoryId" component={PaymentHistoryDetailPage} />
-          <Route path="/mypage/payment-history" component={PaymentHistoryForMenteePage} />
         </Switch>
       </Router>
   );

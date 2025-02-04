@@ -52,16 +52,24 @@ const PaymentHistory = ({ onViewDetail }) => {
     history.push(`/mypage/payment-history/detail/${paymentHistoryId}`);
   };
 
-  const handleReviewButton = (reviewWritten, paymentId) => {
+  const handleReviewButton = (reviewWritten, paymentHistoryId, mentoringPostId,
+    postTitle, mentorNick, profileUrl) => {
     if (!reviewWritten) {
       // 리뷰 작성 페이지로 이동
       history.push({
         pathname: "/mypage/payments/review",
-        state: { paymentId },
+        state: {
+          paymentHistoryId,
+          mentoringPostId,
+          postTitle,
+          mentorNick,
+          profileUrl
+        }
+        
       });
     } else {
       // 리뷰 보기 페이지로 이동
-      history.push(`/mypage/payments/review/${paymentId}`);
+      history.push(`/mypage/payments/review/${paymentHistoryId}`);
     }
   };
 
@@ -85,7 +93,8 @@ const PaymentHistory = ({ onViewDetail }) => {
                   <button
                       className="review-button"
                       onClick={() => handleReviewButton(
-                          history.reviewStatus !== "NOT_YET", history.id)}
+                          history.reviewStatus !== "NOT_YET", history.id,
+                        history.mentoringPostId, history.title, history.userNickname, history.profileUrl)}
                   >
                     {history.reviewStatus === "NOT_YET" ? "후기 작성" : "후기 보기"}
                   </button>

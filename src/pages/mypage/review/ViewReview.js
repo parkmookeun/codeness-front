@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import TrashButton from "../../../components/button/TrashButton";
-import { MoveRight } from "lucide-react";
+import { DEFAULT_PROFILE_IMAGE } from "../../../assets/constants";
+import api from '../../../api/axios';
+import axios from "axios";
 
 function ViewReview(props){
     //상태 관리
@@ -20,7 +21,7 @@ function ViewReview(props){
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://localhost:8080/payment-history/${paymentHistoryId}/reviews`, {
+                const response = await api.get(`/payment-history/${paymentHistoryId}/reviews`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
@@ -45,12 +46,12 @@ function ViewReview(props){
     // API 호출로 리뷰 삭제
     const deleteItem = async (id) => {
         try {
-        await axios.delete(`http://localhost:8080/reviews/${id}`,{
+        await api.delete(`/reviews/${id}`,{
             headers: {
                 'Authorization': `Bearer ${token}`
             },
         });
-        
+       
         } catch (error) {
         console.error('삭제 실패:', error);
         }
@@ -73,7 +74,7 @@ function ViewReview(props){
                 borderRadius: "10px"
             }}>
                 <p><img
-                src= {data.profileUrl || "https://codeness.s3.ap-northeast-1.amazonaws.com/Profile/1-Profile.png"}
+                src= {data.profileUrl || DEFAULT_PROFILE_IMAGE}
                 alt="멘토 이미지"
                 style={{
                     borderRadius: "50%",
@@ -109,7 +110,7 @@ function ViewReview(props){
                 >{data.content}</div>
                 <TrashButton style={{
                     float: "right"
-                }} onDelete={(id) => deleteItem(id)} id={data.reviewId} url='/home'/>
+                }} onDelete={(id) => deleteItem(id)} id={data.reviewId} url='/'/>
                 <br/>
             </div>
     )
