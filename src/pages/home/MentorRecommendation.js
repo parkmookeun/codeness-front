@@ -13,7 +13,7 @@ const MentorRecommendation = () => {
 
   const fetchMentors = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/users/mentoring',{
+      const response = await axios.get('https://api.codeness.com/users/mentoring',{
         headers: {
             'Authorization': `Bearer ${token}`
         },

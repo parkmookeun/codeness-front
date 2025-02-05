@@ -12,7 +12,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-          "http://localhost:8080/login",
+          "https://api.codeness.com/login",
           {
             email,
             password,
