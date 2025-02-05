@@ -28,6 +28,7 @@ const CommunityPage = () => {
     const token = localStorage.getItem("jwtToken");
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.defaults.headers.common["Access-Control-Allow-Origin"] = window.location.protocol + '//' + window.location.hostname;
     }
     axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
   }, []);
