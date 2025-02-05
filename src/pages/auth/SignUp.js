@@ -82,7 +82,7 @@ const SignUp = () => {
     }
 
     try {
-      await axios.post('https://api.codeness.com/signup', formData);
+      await axios.post('https://api.codeness.kr/signup', formData);
       alert('회원가입이 완료되었습니다.');
       history.push('/login');
     } catch (error) {

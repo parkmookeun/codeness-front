@@ -11,7 +11,7 @@ const MainPosts = () => {
  const [error, setError] = useState(null);
 
  const history = useHistory();
- const postsUrl = 'https://api.codeness.com/posts/popular';
+ const postsUrl = 'https://api.codeness.kr/posts/popular';
 
  useEffect(() => {
    const fetchPosts = async () => {
