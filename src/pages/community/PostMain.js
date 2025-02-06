@@ -23,15 +23,6 @@ const CommunityPage = () => {
     "자유 게시판": "FREE",
     공지사항: "NOTICE",
   };
-  // Axios 기본 설정
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios.defaults.headers.common["Access-Control-Allow-Origin"] = window.location.protocol + '//' + window.location.hostname;
-    }
-    axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
-  }, []);
 
   // 데이터 요청 함수
   const fetchPosts = async (params = {}) => {
