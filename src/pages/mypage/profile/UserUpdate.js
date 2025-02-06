@@ -35,7 +35,7 @@ const UserUpdate = () => {
       const decoded = jwtDecode(token);
       setProvider(decoded.provider);
 
-      const response = await api.get('http://localhost:8080/users', {
+      const response = await api.get('/users', {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -90,7 +90,7 @@ const UserUpdate = () => {
     }
 
     try {
-      const response = await api.patch('http://localhost:8080/users', formDataToSend, {
+      const response = await api.patch('/users', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`

@@ -17,7 +17,7 @@ const MentorSettlement = () => {
     const token = localStorage.getItem('jwtToken');
 
     try {
-      const response = await api.get('http://localhost:8080/admin/mentors/settlements', {
+      const response = await api.get('/admin/mentors/settlements', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

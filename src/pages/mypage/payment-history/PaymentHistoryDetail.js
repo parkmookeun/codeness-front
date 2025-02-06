@@ -49,7 +49,7 @@ function PaymentHistoryDetail({ paymentHistoryId, onBack }) {
 
     try {
       await api.post(
-          `http://localhost:8080/mentoring/payments/${data.paymentId}/refund`,
+          `/payments/${data.paymentId}/refund`,
           {
             pgTid: data.pgTid, // PG사 거래 고유 ID
             impUid: data.impUid, // 포트원 고유 결제 ID

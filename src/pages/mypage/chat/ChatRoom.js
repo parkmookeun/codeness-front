@@ -23,7 +23,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     // 메시지 전송 함수 추가
     const sendMessage = async () => {
         try {
-        await api.post('http://localhost:8080/chat-rooms/chat', {
+        await api.post('/chat-rooms/chat', {
             "firebaseChatRoomId": chatRoomId,
             "message": newMessage
         }, {
@@ -38,7 +38,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     useEffect(() => {
     const fetchMessages = async () => {
         try {
-        const response = await api.get(`http://localhost:8080/chat-rooms/${chatRoomId}`, {
+        const response = await api.get(`/chat-rooms/${chatRoomId}`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         setMessages(response.data.data);

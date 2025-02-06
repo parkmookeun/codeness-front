@@ -13,7 +13,7 @@ const UserDeletePage = () => {
     const token = localStorage.getItem('jwtToken');
 
     try {
-      const response = await api.delete('http://localhost:8080/users', {
+      const response = await api.delete('/users', {
         headers: {
           Authorization: `Bearer ${token}`
         },

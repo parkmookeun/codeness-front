@@ -27,7 +27,7 @@ const UserSchedule = () => {
       const startDate = currentMonth.startOf('month').format('YYYY-MM-DD');
       const endDate = currentMonth.endOf('month').format('YYYY-MM-DD');
 
-      const response = await api.get('http://localhost:8080/users/schedule', {
+      const response = await api.get('/users/schedule', {
         headers: {
           Authorization: `Bearer ${token}`
         },

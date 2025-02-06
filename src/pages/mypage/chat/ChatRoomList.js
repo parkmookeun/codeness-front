@@ -16,7 +16,7 @@ const ChatRoomList = ({ onSelectChat, activeChatId }) => {
 
    const fetchChatRooms = async () => {
      try {
-       const response = await api.get('http://localhost:8080/chat-rooms', {
+       const response = await api.get('/chat-rooms', {
          headers: { 'Authorization': `Bearer ${token}` },
          signal: controller.signal
        });

@@ -31,7 +31,7 @@ useEffect(() => {
     if (userData === 'MENTEE'){
         const fetchData = async() => {
             try{
-                const response = await api.get('http://localhost:8080/mentees/mentoring',{
+                const response = await api.get('/mentees/mentoring',{
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -48,7 +48,7 @@ useEffect(() => {
         else if(userData === 'MENTOR'){
             const fetchData = async() => {
                 try{
-                    const response = await api.get('http://localhost:8080/mentors/mentoring',{
+                    const response = await api.get('/mentors/mentoring',{
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
