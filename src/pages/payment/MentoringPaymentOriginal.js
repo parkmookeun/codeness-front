@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios";
 import "../../styles/payment/MentoringPayment.css";
 
 const MentoringPayment = () => {
@@ -44,7 +44,7 @@ const MentoringPayment = () => {
       if (rsp.success) {
         try {
           setImpUid(rsp.imp_uid); // 성공 시 impUid 저장
-          await axios.post(
+          await api.post(
               `/mentoring/payments/${paymentId}/verify`,
               {
                 mentoringScheduleId: scheduleId,
@@ -81,7 +81,7 @@ const MentoringPayment = () => {
         alert("impUid가 없어 결제를 취소할 수 없습니다.");
         return;
       }
-      await axios.delete(`/mentoring/payments/${paymentId}`, {
+      await api.delete(`/mentoring/payments/${paymentId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

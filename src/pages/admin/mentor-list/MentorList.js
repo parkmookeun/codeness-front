@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { useHistory } from 'react-router-dom';
 import '../../../styles/admin/MentorList.css';
 
@@ -14,7 +14,7 @@ const MentorList = () => {
   const fetchMentors = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await axios.get(`/admin/mentors?pageNumber=${currentPage}&pageSize=10`, {
+      const response = await api.get(`/admin/mentors?pageNumber=${currentPage}&pageSize=10`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

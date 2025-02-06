@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom"; // React Router v5 사용
-import axios from "axios";
+import api from "../../api/axios";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Pagination from "../../components/Pagenation";
 import "../../styles/mentoring/MentoringPostSearch.css";
@@ -97,7 +97,7 @@ const MentoringPostSearchPage = () => {
           [searchParams.category]: searchParams.keyword,
         };
 
-        const response = await axios.get("http://localhost:8080/mentoring", { params });
+        const response = await api.get("/mentoring", { params });
 
         setPosts(response.data.data.content);
         setTotalPages(response.data.data.totalPages);

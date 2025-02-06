@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { useHistory } from 'react-router-dom';
 import '../../../styles/mypage/delete-user/DeleteUser.css'
 
@@ -13,7 +13,7 @@ const UserDeletePage = () => {
     const token = localStorage.getItem('jwtToken');
 
     try {
-      const response = await axios.delete('http://localhost:8080/users', {
+      const response = await api.delete('http://localhost:8080/users', {
         headers: {
           Authorization: `Bearer ${token}`
         },

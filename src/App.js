@@ -31,7 +31,6 @@ import PostUpdatePage from "./pages/community/PostUpdate";
 import MentoringPaymentSuccessPage from "./pages/payment/MentoringPaymentSuccess";
 import ChatLayout from "./pages/mypage/chat/ChatLayout";
 import MyMentoring from "./pages/mypage/my-mentoring/MyMentoring";
-
 // 로그인이 필요한 페이지를 위한 Private Route
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = !!localStorage.getItem("jwtToken");
@@ -70,9 +69,9 @@ function App() {
           <PrivateRoute exact path="/mypage/profile" component={MyPageHome} />
           <PrivateRoute exact path="/mypage/chatting" component={ChatLayout} />
           <PrivateRoute exact path="/mypage/schedule" component={UserSchedulePage} />
-          <PrivateRoute exact path="/mypage/payment-history/detail/:paymentHistoryId" component={PaymentHistoryDetailPage} />
-          <PrivateRoute exact path="/mypage/payments/review/:paymentHistoryId" component={ViewReviewPage} />
-          <PrivateRoute exact path="/mypage/payments/review" component={WriteReviewPage} />
+          <PrivateRoute exact path="/mypage/payment-history/detail/:paymentHistoryId/mentor" component={PaymentHistoryDetailPage} />
+          <PrivateRoute exact path="/mypage/payment-history/review/:paymentHistoryId" component={ViewReviewPage} />
+          <PrivateRoute exact path="/mypage/payment-history/review" component={WriteReviewPage} />
           <PrivateRoute exact path="/mypage/payment-history" component={PaymentHistoryForMenteePage} />
           <PrivateRoute exact path="/mypage/my-mentoring" component={MyMentoring} />  
 

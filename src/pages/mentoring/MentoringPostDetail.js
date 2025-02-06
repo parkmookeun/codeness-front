@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useParams, useHistory} from "react-router-dom"; // useHistory 추가
-import axios from "axios";
+import api from "../../api/axios";
 import Pagination from "../../components/Pagenation";
 import "../../styles/mentoring/MentoringPostDetail.css";
 
@@ -21,7 +21,7 @@ const MentoringPostDetail = () => {
     const fetchMentoringPostDetail = async () => {
       try {
         console.log(` 멘토링 상세 페이지 : ${mentoringPostId}`);
-        const response = await axios.get(`/mentoring/${mentoringPostId}`);
+        const response = await api.get(`/mentoring/${mentoringPostId}`);
         setMentoringPost(response.data.data);
       } catch (error) {
         console.error("Error fetching mentoring post detail:", error);
@@ -30,7 +30,7 @@ const MentoringPostDetail = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(
+        const response = await api.get(
             `/mentoring/${mentoringPostId}/reviews`);
         setReviews(response.data.data.content);
       } catch (error) {

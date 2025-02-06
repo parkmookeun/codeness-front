@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios";
 import "../../styles/payment/MentoringPaymentSuccess.css";
 
 const MentoringPaymentSuccess = () => {
@@ -36,7 +36,7 @@ const MentoringPaymentSuccess = () => {
 
         console.log('캘린더 요청 데이터:', eventData);
 
-        const response = await axios.post('/users/schedule', eventData, {
+        const response = await api.post('/users/schedule', eventData, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`

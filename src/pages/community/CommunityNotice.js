@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { Link, useHistory } from "react-router-dom";
 import Pagination from "../../components/Pagenation";
 
@@ -23,21 +23,13 @@ const CommunityPage = () => {
     "자유 게시판": "FREE",
     공지사항: "NOTICE",
   };
-  // Axios 기본 설정
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-    axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
-  }, []);
 
   // 데이터 요청 함수
   const fetchPosts = async (params = {}) => {
     if (isFetching.current) return; // 요청 중이라면 실행하지 않음
     isFetching.current = true;
     try {
-      const response = await axios.get("/posts?postType=NOTICE", { params });
+      const response = await api.get("/posts?postType=NOTICE", { params });
       setPosts(response.data.data.content || []);
       setTotalPages(response.data.data.totalPages || 1);
       setCurrentPage(params.pageNumber + 1); // 백엔드의 pageNumber(0-based)를 1-based로 변환

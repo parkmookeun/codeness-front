@@ -1,7 +1,7 @@
 // 뉴스 메인 페이지-> 메인 페이지에서 보여줄 몇개의 뉴스들
 // MainNewsSection.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axios';
 import './News.css'
 
 const MainNewsList = () => {
@@ -11,12 +11,12 @@ const MainNewsList = () => {
  const [currentPage, setCurrentPage] = useState(0);
  const [totalPage, setTotalPage] = useState(0);
 
- const newsUrl = `http://localhost:8080/news?pageSize=15&pageNumber=${currentPage}`;
+ const newsUrl = `/news?pageSize=15&pageNumber=${currentPage}`;
 
  useEffect(() => {
    const fetchNews = async () => {
      try {
-       const response = await axios.get(newsUrl);
+       const response = await api.get(newsUrl);
        setNews(response.data.data.content);
        setTotalPage(response.data.data.totalPages)
        setLoading(false);

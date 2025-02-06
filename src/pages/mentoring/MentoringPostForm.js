@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory, useLocation } from "react-router-dom";
 import "../../styles/mentoring/MentoringPostForm.css";
+import api from "../../api/axios";
 
 const MentoringPostForm = () => {
   const { handleSubmit, control, register, formState: { errors } } = useForm();
@@ -18,7 +18,7 @@ const MentoringPostForm = () => {
 
     if (token) {
       localStorage.setItem("jwtToken", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       window.history.replaceState({}, document.title, "/mentoring");
     }
 
@@ -26,8 +26,7 @@ const MentoringPostForm = () => {
     if (!savedToken) {
       history.push("/login");
     } else {
-      axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8080";
-      axios.defaults.headers.common["Authorization"] = `Bearer ${savedToken}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${savedToken}`;
     }
   }, [location, history]);
 
@@ -81,7 +80,7 @@ const MentoringPostForm = () => {
     };
 
     try {
-      const response = await axios.post("/mentoring", requestData);
+      const response = await api.post("/mentoring", requestData);
       alert(response.data.msg);
     } catch (error) {
       console.error(error);

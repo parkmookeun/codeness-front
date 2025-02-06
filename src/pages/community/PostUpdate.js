@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios";
 
 const PostUpdatePage = () => {
   const { postId } = useParams(); // URL에서 postId를 가져옴
@@ -12,15 +12,11 @@ const PostUpdatePage = () => {
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태
   const [modalMessage, setModalMessage] = useState(""); // 모달 메시지
 
-  // Axios 기본 설정
-  useEffect(() => {
-    axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
-  }, []);
 
   // 게시글 상세 정보 가져오기
   const fetchPostDetails = async () => {
     try {
-      const response = await axios.get(`/posts/${postId}`);
+      const response = await api.get(`/posts/${postId}`);
       const fetchedPost = response.data.data;
       setPost(fetchedPost);
       setTitle(fetchedPost.title);
@@ -42,7 +38,7 @@ const PostUpdatePage = () => {
     }
 
     try {
-      await axios.patch(`/posts/${postId}`, {
+      await api.patch(`/posts/${postId}`, {
         title,
         content,
       });

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import api from '../../../api/axios';
 
-const PaymentHistory = ({ onViewDetail }) => {
+const PaymentHistoryForMentee = ({ onViewDetail }) => {
   const [paymentHistories, setPaymentHistories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ const PaymentHistory = ({ onViewDetail }) => {
       }
 
       try {
-        const response = await axios.get("http://localhost:8080/mentoring/payment-history", {
+        const response = await api.get("/payment-history", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,8 +57,9 @@ const PaymentHistory = ({ onViewDetail }) => {
     if (!reviewWritten) {
       // 리뷰 작성 페이지로 이동
       history.push({
-        pathname: "/mypage/payments/review",
+        pathname: "/mypage/payment-history/review",
         state: {
+          activeTab: 'payment-history',
           paymentHistoryId,
           mentoringPostId,
           postTitle,
@@ -69,7 +70,12 @@ const PaymentHistory = ({ onViewDetail }) => {
       });
     } else {
       // 리뷰 보기 페이지로 이동
-      history.push(`/mypage/payments/review/${paymentHistoryId}`);
+      history.push({
+          pathname:  `/mypage/payment-history/review/${paymentHistoryId}`,
+          state: { activeTab: 'payment-history',
+                   paymentHistoryId
+          }
+      });
     }
   };
 
@@ -107,4 +113,4 @@ const PaymentHistory = ({ onViewDetail }) => {
   );
 };
 
-export default PaymentHistory;
+export default PaymentHistoryForMentee;

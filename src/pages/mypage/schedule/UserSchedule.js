@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import '../../../styles/mypage/schedule/UserSchedule.css'
@@ -27,7 +27,7 @@ const UserSchedule = () => {
       const startDate = currentMonth.startOf('month').format('YYYY-MM-DD');
       const endDate = currentMonth.endOf('month').format('YYYY-MM-DD');
 
-      const response = await axios.get('http://localhost:8080/users/schedule', {
+      const response = await api.get('http://localhost:8080/users/schedule', {
         headers: {
           Authorization: `Bearer ${token}`
         },
@@ -39,10 +39,11 @@ const UserSchedule = () => {
 
       if (response.data?.data) {
         setEvents(response.data.data);
+        setError(null);
       }
     } catch (error) {
       if (error.response?.status === 401) {
-        history.push('/login');
+        setError('소셜 로그인이 필요한 서비스입니다.');
       } else {
         setError('일정을 불러오는데 실패했습니다.');
       }
@@ -68,49 +69,56 @@ const UserSchedule = () => {
 
   return (
       <div className="calendar-container">
-        <div className="calendar-header">
-          <div className="calendar-controls">
-            <button onClick={handlePrevMonth}>&lt;</button>
-            <h2 className="calendar-title">{currentMonth.format('YYYY년 MM월')}</h2>
-            <button onClick={handleNextMonth}>&gt;</button>
-          </div>
-        </div>
-
-        <div className="calendar-grid">
-          {weekDays.map(day => (
-              <div key={day} className="weekday">
-                {day}
-              </div>
-          ))}
-
-          {generateCalendar().map(date => {
-            const isCurrentMonth = date.month() === currentMonth.month();
-            const dayEvents = events.filter(event =>
-                moment(event.startTime).format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
-            );
-
-            return (
-                <div key={date.format('YYYY-MM-DD')}
-                     className={`day ${!isCurrentMonth ? 'other-month' : ''}`}>
-                  <div className="day-number">{date.format('D')}</div>
-                  <div className="event-container">
-                    {dayEvents.map(event => (
-                        <div key={event.id} className="event" title={event.summary}>
-                          <div className="event-title">{event.title}</div>
-                          <div className="event-summary">{event.summary}</div>
-                          <div className="event-details">
-                            <p>{moment(event.startTime).format('YYYY-MM-DD HH:mm')} ~ {moment(event.endTime).format('HH:mm')}</p>
-                            {event.description && <p>{event.description}</p>}
-                          </div>
-                        </div>
-                    ))}
-                  </div>
+        {error === '소셜 로그인이 필요한 서비스입니다.' ? (
+            <div className="error-container">
+              <p>{error}</p>
+              <button className="small-btn" onClick={() => history.push('/login')}>로그인</button>
+            </div>
+        ) : (
+            <>
+              <div className="calendar-header">
+                <div className="calendar-controls">
+                  <button onClick={handlePrevMonth}>&lt;</button>
+                  <h2 className="calendar-title">{currentMonth.format('YYYY년 MM월')}</h2>
+                  <button onClick={handleNextMonth}>&gt;</button>
                 </div>
-            );
-          })}
-        </div>
+              </div>
 
-        {error && <div className="error">{error}</div>}
+              <div className="calendar-grid">
+                {weekDays.map(day => (
+                    <div key={day} className="weekday">
+                      {day}
+                    </div>
+                ))}
+
+                {generateCalendar().map(date => {
+                  const isCurrentMonth = date.month() === currentMonth.month();
+                  const dayEvents = events.filter(event =>
+                      moment(event.startTime).format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+                  );
+
+                  return (
+                      <div key={date.format('YYYY-MM-DD')}
+                           className={`day ${!isCurrentMonth ? 'other-month' : ''}`}>
+                        <div className="day-number">{date.format('D')}</div>
+                        <div className="event-container">
+                          {dayEvents.map(event => (
+                              <div key={event.id} className="event" title={event.summary}>
+                                <div className="event-title">{event.title}</div>
+                                <div className="event-summary">{event.summary}</div>
+                                <div className="event-details">
+                                  <p>{moment(event.startTime).format('YYYY-MM-DD HH:mm')} ~ {moment(event.endTime).format('HH:mm')}</p>
+                                  {event.description && <p>{event.description}</p>}
+                                </div>
+                              </div>
+                          ))}
+                        </div>
+                      </div>
+                  );
+                })}
+              </div>
+            </>
+        )}
       </div>
   );
 };

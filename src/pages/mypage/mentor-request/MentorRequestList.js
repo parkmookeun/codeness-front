@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { useHistory } from 'react-router-dom';
 import '../../../styles/mypage/mentor-request/MentorRequestList.css'
 
@@ -65,7 +65,7 @@ const MentorRequestPage = () => {
 
     try {
       setLoading(true);
-      const response = await axios.get('/users/mentors', {
+      const response = await api.get('/users/mentors', {
         headers: { Authorization: `Bearer ${token.trim()}` }
       });
       setMentorRequests(response.data.data || []);
@@ -85,7 +85,7 @@ const MentorRequestPage = () => {
   const handleDelete = async (requestId) => {
     try {
       const token = localStorage.getItem('jwtToken');
-      await axios.delete(`/users/mentors/${requestId}`, {
+      await api.delete(`/users/mentors/${requestId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMentorRequests(prevRequests =>

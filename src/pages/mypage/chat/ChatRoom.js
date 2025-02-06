@@ -1,6 +1,6 @@
 // src/pages/chat/ChatRoom.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { database } from '../../../firebaseConfig';
 import { ref, set, onChildAdded, onChildChanged ,off } from 'firebase/database';
 import { jwtDecode } from 'jwt-decode';
@@ -23,7 +23,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     // 메시지 전송 함수 추가
     const sendMessage = async () => {
         try {
-        await axios.post('http://localhost:8080/chat-rooms/chat', {
+        await api.post('http://localhost:8080/chat-rooms/chat', {
             "firebaseChatRoomId": chatRoomId,
             "message": newMessage
         }, {
@@ -38,7 +38,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     useEffect(() => {
     const fetchMessages = async () => {
         try {
-        const response = await axios.get(`http://localhost:8080/chat-rooms/${chatRoomId}`, {
+        const response = await api.get(`http://localhost:8080/chat-rooms/${chatRoomId}`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         setMessages(response.data.data);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../../api/axios';
 import '../../../styles/mypage/profile/PasswordUpdate.css'
 
 const PasswordUpdate = () => {
@@ -49,7 +49,7 @@ const PasswordUpdate = () => {
     }
 
     try {
-      await axios.patch('/users/password', formData, {
+      await api.patch('/users/password', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('비밀번호가 성공적으로 변경되었습니다.');

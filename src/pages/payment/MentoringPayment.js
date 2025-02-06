@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios";
 import "../../styles/payment/MentoringPayment.css";
 
 const MentoringPayment = () => {
@@ -43,8 +43,8 @@ const MentoringPayment = () => {
     IMP.request_pay(paymentData, async (rsp) => {
       if (rsp.success) {
         try {
-          await axios.post(
-              `/mentoring/payments/${paymentId}/verify`,
+          await api.post(
+              `/payments/${paymentId}/verify`,
               {
                 mentoringScheduleId: scheduleId,
                 impUid: rsp.imp_uid,
@@ -83,7 +83,7 @@ const MentoringPayment = () => {
       return;
     }
 
-    await axios.delete(`/mentoring/payments/${paymentId}/rejection`, {
+    await api.delete(`/mentoring/payments/${paymentId}/rejection`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -101,7 +101,7 @@ const MentoringPayment = () => {
       return;
     }
 
-    await axios.delete(`/mentoring/payments/${paymentId}/cancel`, {
+    await api.delete(`/mentoring/payments/${paymentId}/cancel`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import '../../../styles/mypage/profile/MyPage.css'
+import placeholder from '../../../assets/icons/profile-placeholder.png'
+import api from '../../../api/axios';
 
 const MyPage = () => {
   const [userData, setUserData] = useState(null);
@@ -10,7 +12,7 @@ const MyPage = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        const response = await axios.get('http://localhost:8080/users', {
+        const response = await api.get('/users', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -36,10 +38,10 @@ const MyPage = () => {
         <h1>마이페이지</h1>
 
         <div className="profile-section">
-          <img src="/api/placeholder/200/200" alt="프로필 이미지" className="profile-image" />
+          <img src={userData.profileImageLink} alt="프로필 이미지" className="profile-image" />
           <div className="profile-info">
             <h2>{userData.name}</h2>
-            <p>닉네임: {userData.nickname}</p>
+            <p>닉네임: {userData.userNickname}</p>
             <p>이메일: {userData.email}</p>
             <p>전화번호: {userData.phoneNumber}</p>
             <p>지역: {userData.region}</p>

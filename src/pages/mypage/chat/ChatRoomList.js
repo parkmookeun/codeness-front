@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { getDatabase, ref, onChildAdded, onChildChanged, off } from 'firebase/database';
 import { jwtDecode } from 'jwt-decode';
+import api from '../../../api/axios';
+import { DEFAULT_PROFILE_IMAGE } from '../../../assets/constants';
 
 const ChatRoomList = ({ onSelectChat, activeChatId }) => {
  const [chatRooms, setChatRooms] = useState([]);
@@ -15,7 +16,7 @@ const ChatRoomList = ({ onSelectChat, activeChatId }) => {
 
    const fetchChatRooms = async () => {
      try {
-       const response = await axios.get('http://localhost:8080/chat-rooms', {
+       const response = await api.get('http://localhost:8080/chat-rooms', {
          headers: { 'Authorization': `Bearer ${token}` },
          signal: controller.signal
        });
@@ -101,7 +102,7 @@ const ChatRoomList = ({ onSelectChat, activeChatId }) => {
          style={{ padding: '10px', cursor: 'pointer', border:"1px solid black", borderRadius:"5px"}}
        >
          <img 
-           src={room.partnerProfileUrl || "https://images.unsplash.com/photo-1734613876170-079f67aa0d15?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNnx8fGVufDB8fHx8fA%3D%3D"} 
+           src={room.partnerProfileUrl || DEFAULT_PROFILE_IMAGE} 
            style={{ width: 50, height: 50, borderRadius: '50%'}} 
            alt="프로필"
          />

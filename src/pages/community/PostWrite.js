@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
+import api from "../../api/axios";
 
 const WritePostPage = () => {
   const [title, setTitle] = useState("");
@@ -11,14 +11,6 @@ const WritePostPage = () => {
 
   const history = useHistory();
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-    axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
-  }, []);
-
   const handleSubmit = async () => {
     if (!title || !content) {
       setModalMessage("제목과 내용을 모두 입력해주세요.");
@@ -27,7 +19,7 @@ const WritePostPage = () => {
     }
 
     try {
-      await axios.post("/posts", {
+      await api.post("/posts", {
         title,
         content,
         postType,

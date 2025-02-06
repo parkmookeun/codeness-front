@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../../api/axios';
 import '../../../styles/admin/MentorRequest.css'
 
 const MentorRequestList = ({ history }) => {
@@ -15,7 +15,7 @@ const MentorRequestList = ({ history }) => {
   const fetchMentorRequests = async () => {
     try {
       const token = localStorage.getItem('jwtToken');
-      const response = await axios.get('/admin/mentors/mentor-requests', {
+      const response = await api.get('/admin/mentors/mentor-requests', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRequests(response.data.data || []);
@@ -29,7 +29,7 @@ const MentorRequestList = ({ history }) => {
   const handleUpdateStatus = async (mentorId, status) => {
     try {
       const token = localStorage.getItem('jwtToken');
-      await axios.patch(`/admin/mentors/mentor-requests/${mentorId}`,
+      await api.patch(`/admin/mentors/mentor-requests/${mentorId}`,
           { isAccepted: status },
           { headers: { Authorization: `Bearer ${token}` }}
       );

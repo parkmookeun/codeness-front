@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useParams, useHistory} from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios";
 
 const PostDetailPage = () => {
   const {postId} = useParams();
@@ -17,14 +17,6 @@ const PostDetailPage = () => {
   const [commentId, setCommentId] = useState(null); // 수정 중인 댓글 ID
   const [editContent, setEditContent] = useState(""); // 수정 중인 댓글 내용
 
-  // Axios 기본 설정
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-    axios.defaults.baseURL = process.env.REACT_APP_REBACKEND_URL;
-  }, []);
 
   // JWT 토큰 검증 및 디코딩 함수
   const validateToken = (token) => {
@@ -50,7 +42,7 @@ const PostDetailPage = () => {
   // 게시글 상세 정보 가져오기
   const fetchPostDetails = async () => {
     try {
-      const response = await axios.get(`/posts/${postId}`);
+      const response = await api.get(`/posts/${postId}`);
       setPost(response.data.data);
 
       // JWT 토큰 검증 및 작성자 확인
@@ -73,7 +65,7 @@ const PostDetailPage = () => {
   const fetchComments = async () => {
     setCommentsLoading(true);
     try {
-      const response = await axios.get(`/posts/${postId}/comments`);
+      const response = await api.get(`/posts/${postId}/comments`);
       const token = localStorage.getItem("jwtToken");
       const {isValid, userId} = validateToken(token);
 
@@ -111,7 +103,7 @@ const PostDetailPage = () => {
 
     try {
       const token = localStorage.getItem("jwtToken");
-      await axios.patch(
+      await api.patch(
           `/comments/${commentId}`, // 댓글 ID는 경로 변수로 전송
           {content: editContent}, // 수정할 내용은 Body로 전송
           {headers: {Authorization: `Bearer ${token}`}}
@@ -142,7 +134,7 @@ const PostDetailPage = () => {
     setModalConfirm(() => async () => {
       try {
         const token = localStorage.getItem("jwtToken");
-        await axios.delete(`/comments/${commentId}`, {
+        await api.delete(`/comments/${commentId}`, {
           headers: {Authorization: `Bearer ${token}`},
         });
         setModalMessage("댓글이 삭제되었습니다.");
@@ -162,7 +154,7 @@ const PostDetailPage = () => {
     setModalMessage("정말로 삭제하시겠습니까?");
     setModalConfirm(() => async () => {
       try {
-        await axios.delete(`/posts/${postId}`);
+        await api.delete(`/posts/${postId}`);
         setModalMessage("게시글이 삭제되었습니다.");
         setModalConfirm(null); // 확인 후 삭제 로직 해제
         setShowModal(true);
@@ -190,7 +182,7 @@ const PostDetailPage = () => {
 
     try {
       const token = localStorage.getItem("jwtToken");
-      await axios.post(
+      await api.post(
           `/posts/${postId}/comments`,
           {content: newComment},
           {headers: {Authorization: `Bearer ${token}`}}

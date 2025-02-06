@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom"; // useHistory는 함수형 컴포넌트 내에서만 호출해야 합니다.
+import api from '../../api/axios';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,8 +11,8 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-          "https://api.codeness.kr/login",
+      const response = await api.post(
+          "/login",
           {
             email,
             password,
@@ -26,13 +26,12 @@ const Login = () => {
       );
 
       // 응답 헤더에서 토큰 추출 (서버 응답 방식에 따라 조정 필요)
-      const token = response.headers["authorization"] || response.data.token;
+      const token = response.headers["authorization"] || response.data.data;
 
       if (token) {
         // 토큰 저장 키를 'jwtToken'으로 통일
         localStorage.setItem("jwtToken", token);
         // Bearer 접두사 포함하여 axios 기본 헤더 설정
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         setMessage("로그인 성공!");
         history.push("/");
       } else {

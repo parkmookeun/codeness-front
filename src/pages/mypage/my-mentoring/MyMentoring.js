@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import './MyMentoring.css'
 import TrashButton from '../../../components/button/TrashButton';
 
@@ -31,14 +31,14 @@ useEffect(() => {
     if (userData === 'MENTEE'){
         const fetchData = async() => {
             try{
-                const response = await axios.get('http://localhost:8080/mentees/mentoring',{
+                const response = await api.get('http://localhost:8080/mentees/mentoring',{
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                     });
                     setMyData(response.data.data.content);
                 }catch(error){
-                    if(!axios.isCancel(error)){
+                    if(!api.isCancel(error)){
                         console.error('내 멘토링 데이터 가져오기 실패:', error);
                     }
                 }
@@ -48,14 +48,14 @@ useEffect(() => {
         else if(userData === 'MENTOR'){
             const fetchData = async() => {
                 try{
-                    const response = await axios.get('http://localhost:8080/mentors/mentoring',{
+                    const response = await api.get('http://localhost:8080/mentors/mentoring',{
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
                         });
                         setMyData(response.data.data);
                     }catch(error){
-                        if(!axios.isCancel(error)){
+                        if(!api.isCancel(error)){
                             console.error('내 멘토링 데이터 가져오기 실패:', error);
                         }
                     }
@@ -67,7 +67,7 @@ useEffect(() => {
     // API 호출로 리뷰 삭제
     const deleteItem = async (id) => {
         try {
-            const response = await axios({
+            const response = await api({
                 method: 'patch',
                 url: `/mentoring/${id}`,
                 headers: {

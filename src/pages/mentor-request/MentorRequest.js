@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axios';
 import '../../styles/mypage/mentor-request/MentorRequest.css';
 
 const MentorApplicationForm = () => {
@@ -26,7 +26,7 @@ const MentorApplicationForm = () => {
         return;
       }
 
-      const response = await axios.get('/users', {
+      const response = await api.get('/users', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const user = response.data.data;
@@ -57,7 +57,7 @@ const MentorApplicationForm = () => {
     });
 
     try {
-      await axios.post('/users/mentors', data, {
+      await api.post('/users/mentors', data, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

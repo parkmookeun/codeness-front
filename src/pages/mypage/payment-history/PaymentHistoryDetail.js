@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from '../../../api/axios';
 
 function PaymentHistoryDetail({ paymentHistoryId, onBack }) {
   const [data, setData] = useState(null);
@@ -21,7 +21,7 @@ function PaymentHistoryDetail({ paymentHistoryId, onBack }) {
       }
 
       try {
-        const response = await axios.get(`http://localhost:8080/mentoring/payment-history/${paymentHistoryId}`, {
+        const response = await api.get(`/payment-history/${paymentHistoryId}/mentees`, {
           headers: {
             Authorization: `Bearer ${token}`, // 헤더에 토큰 설정
           },
@@ -48,7 +48,7 @@ function PaymentHistoryDetail({ paymentHistoryId, onBack }) {
     setRefundSuccess(null);
 
     try {
-      await axios.post(
+      await api.post(
           `http://localhost:8080/mentoring/payments/${data.paymentId}/refund`,
           {
             pgTid: data.pgTid, // PG사 거래 고유 ID

@@ -2,7 +2,7 @@
 // MainNewsSection.js
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../api/axios';
 import '../news/News.css'
 
 const MainPosts = () => {
@@ -11,12 +11,12 @@ const MainPosts = () => {
  const [error, setError] = useState(null);
 
  const history = useHistory();
- const postsUrl = 'https://api.codeness.kr/posts/popular';
+ const postsUrl = '/posts/popular';
 
  useEffect(() => {
    const fetchPosts = async () => {
      try {
-       const response = await axios.get(postsUrl);
+       const response = await api.get(postsUrl);
        setPosts(response.data.data);
        setLoading(false);
      } catch (err) {
@@ -39,7 +39,7 @@ const MainPosts = () => {
      <h2
      style={{ cursor: 'pointer'}}
      onClick={() => history.push('/community')}
-     >최신 게시글</h2>
+     >인기 게시글</h2>
      <div style={{
         width: "60%",
         border: "2px solid gray",
