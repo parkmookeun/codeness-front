@@ -43,7 +43,7 @@ const MentoringPayment = () => {
     IMP.request_pay(paymentData, async (rsp) => {
       if (rsp.success) {
         try {
-          await api.post(
+          const response = await api.post(
               `/payments/${paymentId}/verify`,
               {
                 mentoringScheduleId: scheduleId,
@@ -58,8 +58,21 @@ const MentoringPayment = () => {
                 },
               }
           );
-          alert("결제가 완료되었습니다!");
-          history.push("/mentoring/success");
+
+          if (response.data?.data) {
+            const paymentHistoryId = response.data.data; // 서버에서 받은 paymentHistoryId
+            alert("결제가 완료되었습니다!");
+
+            //결제 검증 완료 후 paymentHistoryId 성공 페이지로 전달
+            history.push("/mentoring/success", {
+              mentorNickname: location.state.mentorNickname,
+              mentoringDate,
+              mentoringTime,
+              paymentHistoryId,
+            });
+          } else {
+            throw new Error("결제 검증 실패: 서버 응답 없음");
+          }
         } catch (error) {
           console.error("결제 검증 중 오류:", error);
           alert("결제 검증 중 문제가 발생했습니다.");
@@ -83,7 +96,7 @@ const MentoringPayment = () => {
       return;
     }
 
-    await api.delete(`/mentoring/payments/${paymentId}/rejection`, {
+    await api.delete(`/payments/${paymentId}/rejection`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -101,7 +114,7 @@ const MentoringPayment = () => {
       return;
     }
 
-    await api.delete(`/mentoring/payments/${paymentId}/cancel`, {
+    await api.delete(`/payments/${paymentId}/cancel`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -128,7 +141,6 @@ const MentoringPayment = () => {
       <div className="payment-page">
         <h1>Mentoring Payment</h1>
         <div className="payment-details">
-          <p>스케줄 ID: {scheduleId}</p>
           <p>스케줄 날짜: {mentoringDate}</p>
           <p>스케줄 시간: {mentoringTime}</p>
           <p>결제 금액: {price}원</p>

@@ -95,13 +95,13 @@
 
 .mentoring-schedule-item:hover {
   background-color: #f0f4ff;
-  border-color: #3b82f6;
+  border-color: #3C7FCC;
 }
 
 .mentoring-schedule-item.selected {
-  background-color: #3b82f6;
+  background-color: #3C7FCC;
   color: #fff;
-  border-color: #3b82f6;
+  border-color: #3C7FCC;
 }
 
 /* 버튼 스타일 */
@@ -113,7 +113,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: #3b82f6;
+  background-color: #3C7FCC;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -122,7 +122,7 @@
 }
 
 .mentoring-button:hover {
-  background-color: #2563eb;
+  background-color: #3C7FCC;
 }
 
 .mentoring-button:disabled {
