@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../api/axios';
+import axios from 'axios';
 import './MyMentoring.css'
 import TrashButton from '../../../components/button/TrashButton';
 
@@ -55,7 +56,7 @@ useEffect(() => {
                         });
                         setMyData(response.data.data);
                     }catch(error){
-                        if(!api.isCancel(error)){
+                        if(!axios.isCancel(error)){
                             console.error('내 멘토링 데이터 가져오기 실패:', error);
                         }
                     }
