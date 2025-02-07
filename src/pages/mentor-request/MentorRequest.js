@@ -73,6 +73,9 @@ const MentorApplicationForm = () => {
         companyEmail: '',
         multipartFile: null,
       });
+
+      // 신청 완료 후 메인 페이지로 이동
+      window.location.href = '/';
     } catch (error) {
       console.error('멘토 신청 제출 중 오류:', error);
       alert('멘토 신청 제출 중 오류가 발생했습니다.');
@@ -165,8 +168,8 @@ const MentorApplicationForm = () => {
                 <h2>알림</h2>
                 <p>멘토 신청을 위해서는 회원 정보에서 분야와 지역을 먼저 입력해주세요.</p>
                 <div className="modal-buttons">
-                  <button onClick={() => (window.location.href = '/user/update')}>
-                    회원정보 수정하기
+                  <button onClick={() => (window.location.href = '/')}>
+                    홈으로 이동
                   </button>
                 </div>
               </div>

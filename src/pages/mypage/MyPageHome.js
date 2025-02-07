@@ -14,6 +14,7 @@ import WriteView from './review/WriteReview';
 import ViewReview from './review/ViewReview';
 import { useLocation } from 'react-router-dom';
 import MentorSettlementDetail from './payment-history/mentor/MentorSettlementDetail';
+import UserScheduleDummy from "./schedule/UserScheduleDummy";
 
 const MyPageHome = () => {
   const [activeTab, setActiveTab] = useState('profile');
@@ -96,7 +97,7 @@ const MyPageHome = () => {
           {/* 각 탭에 해당하는 컴포넌트를 여기에 렌더링 */}
           {activeTab === 'profile' && <MyPage/>}
           {activeTab === 'chatting' && <ChatLayout/>}
-          {activeTab === 'mentoring' && <UserSchedule/>}
+          {activeTab === 'mentoring' && <UserScheduleDummy/>}
           {activeTab === 'my-mentoring' && <MyMentoring/>}
           {activeTab === 'withdraw' && <DeleteUser/>}
           {activeTab === 'history' && <MentorRequestList/>}
