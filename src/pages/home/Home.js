@@ -41,7 +41,7 @@ function Home() {
           display: 'grid',
           gridTemplateColumns: '2fr 1fr',
           gap: '40px',
-          width: '90%',
+          width: '95%',
           margin: '0 auto',
           padding: '20px',
           minHeight: '400px'

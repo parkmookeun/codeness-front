@@ -8,20 +8,37 @@ a:hover{
 }
 
 .company-container{
-  border: 2px solid gray;
+  background-color: #F8F8F8;
   border-radius: 20px;
-  width: 600px;
+  width: 650px;
 
 }
 
 .company-container div{
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 10px;
+}
+
+.company-container div p{
+  font-size: 15px;
+  text-align: left;
+  margin: 0;  
+  padding: 5px;
+}
+
+.company-container div p span {
+  font-weight: bolder;
+  color: #3C7FCC;
+}
+
+.company-container button{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #3C7FCC;
   text-align: center;
 
 }
 
-.company-container div p{
-  font-size: 25px;
-  margin: 0;  
-  padding: 0;
-}
+
+

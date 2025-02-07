@@ -38,7 +38,7 @@ const PostUpdatePage = () => {
     }
 
     try {
-      await api.patch(`/posts/${postId}`, {
+      await api.patch(`/posts/${postId}/update`, {
         title,
         content,
       });
