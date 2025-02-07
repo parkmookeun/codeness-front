@@ -96,14 +96,21 @@ const PaymentHistoryForMentee = ({ onViewDetail }) => {
                           history.paymentStatus)} - {history.userNickname} / {history.mentoringDate} / {history.mentoringTime} [ {history.title} ]
                     </strong>
                   </p>
-                  <button
-                      className="review-button"
-                      onClick={() => handleReviewButton(
-                          history.reviewStatus !== "NOT_YET", history.id,
-                        history.mentoringPostId, history.title, history.userNickname, history.profileUrl)}
-                  >
-                    {history.reviewStatus === "NOT_YET" ? "후기 작성" : "후기 보기"}
-                  </button>
+                  {history.paymentStatus !== "CANCEL" && (
+                   <button
+                   className="review-button"
+                   onClick={() => handleReviewButton(
+                     history.reviewStatus !== "NOT_YET",
+                     history.id,
+                     history.mentoringPostId,
+                     history.title,
+                     history.userNickname,
+                     history.profileUrl
+                   )}
+                 >
+                   {history.reviewStatus === "NOT_YET" ? "후기 작성" : "후기 보기"}
+                 </button>
+                  )}
                 </div>
             ))
         ) : (

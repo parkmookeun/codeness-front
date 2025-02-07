@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import api from "../../api/axios";
 import "../../styles/payment/MentoringReservation.css";
+import { DEFAULT_PROFILE_IMAGE } from '../../assets/constants';
 
 const MentoringReservation = () => {
   const { mentoringPostId } = useParams();
@@ -123,7 +124,7 @@ const MentoringReservation = () => {
           <div className="mentoring-profile">
             <img
                 src={mentoringPost?.mentorProfilePicture
-                    || "/default-profile.png"}
+                    || DEFAULT_PROFILE_IMAGE} //TODO: 나중에 수정
                 alt="Mentor Profile"
                 className="mentoring-profile-img"
             />

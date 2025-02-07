@@ -3,6 +3,7 @@ import {useParams, useHistory} from "react-router-dom"; // useHistory 추가
 import api from "../../api/axios";
 import Pagination from "../../components/Pagenation";
 import "../../styles/mentoring/MentoringPostDetail.css";
+import {DEFAULT_PROFILE_IMAGE} from '../../assets/constants';
 
 const MentoringPostDetail = () => {
   const {mentoringPostId} = useParams(); // URL 파라미터에서 mentoringPostId 가져오기
@@ -56,7 +57,7 @@ const MentoringPostDetail = () => {
         {/* 공고 상세 섹션 */}
         <div className="section mentor-profile">
           <img
-              src={mentoringPost.mentorProfilePicture}
+              src={mentoringPost.mentorProfilePicture || DEFAULT_PROFILE_IMAGE} //TODO: 나중에 수정
               alt="Mentor Profile"
               className="mentor-image"
           />
