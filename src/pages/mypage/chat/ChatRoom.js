@@ -1,9 +1,10 @@
 // src/pages/chat/ChatRoom.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import api from '../../../api/axios';
 import { database } from '../../../firebaseConfig';
 import { ref, set, onChildAdded, onChildChanged ,off } from 'firebase/database';
 import { jwtDecode } from 'jwt-decode';
+import { DEFAULT_PROFILE_IMAGE } from '../../../assets/constants';
 
 const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     const [messages, setMessages] = useState([]);
@@ -13,6 +14,17 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     const [newMessage, setNewMessage] = useState('');
     const [initialTimestamp, setInitialTimestamp] = useState(null); // 추가
 
+    const messagesEndRef = useRef(null);
+
+    // 스크롤을 맨 아래로 이동시키는 함수
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+      // 메시지가 업데이트될 때마다 스크롤
+      useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     // 새로운 함수: unreadCount를 0으로 업데이트
     const updateUnreadCount = async () => {
@@ -22,6 +34,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
 
     // 메시지 전송 함수 추가
     const sendMessage = async () => {
+        if (!newMessage.trim()) return;  // 빈 메시지 방지
         try {
         await api.post('/chat-rooms/chat', {
             "firebaseChatRoomId": chatRoomId,
@@ -30,6 +43,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
             headers: { "Authorization": `Bearer ${token}` }
         });
         setNewMessage('');
+        scrollToBottom();  // 메시지 전송 후 스크롤
         } catch (error) {
         console.error('메시지 전송 실패:', error);
         }
@@ -89,7 +103,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
     off(messagesRef);
     updateUnreadCount();
 };
- }, [chatRoomId,token,initialTimestamp]);
+ }, [chatRoomId,initialTimestamp]);
 
  return (
   <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -104,7 +118,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {msg.senderId === partnerId && (
               <img 
-                src={profileImage || "https://images.unsplash.com/photo-1734613876170-079f67aa0d15?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNnx8fGVufDB8fHx8fA%3D%3D"} 
+                src={profileImage || DEFAULT_PROFILE_IMAGE} 
                 style={{ width: 30, height: 30, borderRadius: '50%', flexShrink: 0 }} 
                 alt="프로필"
               />
@@ -129,6 +143,7 @@ const ChatRoom = ({ chatRoomId, partnerId, profileImage}) => {
           </div>
         </div>
       ))}
+      <div ref={messagesEndRef} />
     </div>
 <div style={{ 
  display: 'flex', 

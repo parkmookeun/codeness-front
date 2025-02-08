@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TrashButton from "../../../components/button/TrashButton";
 import { DEFAULT_PROFILE_IMAGE } from "../../../assets/constants";
 import api from '../../../api/axios';
+import axios from "axios";
 
 function ViewReview({paymentHistoryId}){
     //상태 관리
@@ -31,7 +32,7 @@ function ViewReview({paymentHistoryId}){
                 console.log('API Response:', response); // 응답 데이터 확인
                 setData(response.data.data);
             } catch (error) {
-                if (!api.isCancel(error)) {
+                if (!axios.isCancel(error)) {
                     console.error('데이터 가져오기 실패:', error);
                     console.log('Error details:', {
                         message: error.message,

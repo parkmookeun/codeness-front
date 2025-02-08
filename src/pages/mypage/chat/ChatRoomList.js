@@ -8,7 +8,6 @@ const ChatRoomList = ({ onSelectChat, activeChatId }) => {
  const [chatRooms, setChatRooms] = useState([]);
  const token = localStorage.getItem("jwtToken");
  const userId = jwtDecode(token).userId;
- console.log(`유저 아이디는 ${userId}`);
  const database = getDatabase();
 
  useEffect(() => {
@@ -80,7 +79,7 @@ const ChatRoomList = ({ onSelectChat, activeChatId }) => {
     });
   };
 
- }, [token,database, activeChatId]);
+ }, [database]);
 
 
  
