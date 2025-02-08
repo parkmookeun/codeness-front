@@ -86,7 +86,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* 구글 로그인 버튼 */}
         <div className="social-login">
           <button onClick={handleGoogleLogin} className="google-login-button">
             Google로 로그인
@@ -95,72 +94,78 @@ const Login = () => {
 
         {message && <p className="message">{message}</p>}
 
-        <style jsx>{`
-        .login-container {
-          max-width: 400px;
-          margin: 0 auto;
-          padding: 20px;
-        }
+        {/* 인라인 스타일로 변경 */}
+        <style>
+          {`
+          .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+          }
 
-        .login-form {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
+          .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+          }
 
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-        }
+          .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+          }
 
-        input {
-          padding: 8px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-        }
+          input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+          }
 
-        .login-button {
-          padding: 10px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
+          .login-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+          }
 
-        .login-button:hover {
-          background-color: #0056b3;
-        }
+          .login-button:hover {
+            background-color: #0056b3;
+          }
 
-        .social-login {
-          margin-top: 20px;
-          text-align: center;
-        }
+          .social-login {
+            margin-top: 20px;
+            text-align: center;
+          }
 
-        .google-login-button {
-          padding: 10px;
-          background-color: white;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto;
-        }
+          .google-login-button {
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: #4285F4 !important;  /* !important를 추가하여 우선순위 높임 */
+            font-weight: 500;
+          }
 
-        .google-login-button:hover {
-          background-color: #f5f5f5;
-        }
+          .google-login-button:hover {
+            background-color: #f5f5f5;
+          }
 
-        .message {
-          margin-top: 15px;
-          color: #dc3545;
-          text-align: center;
-        }
-      `}</style>
+          .message {
+            margin-top: 15px;
+            color: #dc3545;
+            text-align: center;
+          }
+        `}
+        </style>
       </div>
   );
 };
+
 export default Login;

@@ -97,7 +97,7 @@ const MyPageHome = () => {
           {/* 각 탭에 해당하는 컴포넌트를 여기에 렌더링 */}
           {activeTab === 'profile' && <MyPage/>}
           {activeTab === 'chatting' && <ChatLayout/>}
-          {activeTab === 'mentoring' && <UserScheduleDummy/>}
+          {activeTab === 'mentoring' && <UserSchedule/>}
           {activeTab === 'my-mentoring' && <MyMentoring/>}
           {activeTab === 'withdraw' && <DeleteUser/>}
           {activeTab === 'history' && <MentorRequestList/>}
