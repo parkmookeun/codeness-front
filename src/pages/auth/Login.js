@@ -1,6 +1,29 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom"; // useHistory는 함수형 컴포넌트 내에서만 호출해야 합니다.
+import { useHistory } from "react-router-dom";
 import api from '../../api/axios';
+
+// 이벤트 버스 생성
+const eventBus = {
+  listeners: {},
+  emit(event) {
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(callback => callback());
+    }
+  },
+  on(event, callback) {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+    this.listeners[event].push(callback);
+  },
+  off(event, callback) {
+    if (this.listeners[event]) {
+      this.listeners[event] = this.listeners[event].filter(cb => cb !== callback);
+    }
+  }
+};
+
+export const loginEventBus = eventBus;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,17 +44,15 @@ const Login = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            withCredentials: true, // CORS 요청에 credential 포함
+            withCredentials: true,
           }
       );
 
-      // 응답 헤더에서 토큰 추출 (서버 응답 방식에 따라 조정 필요)
       const token = response.headers["authorization"] || response.data.data;
 
       if (token) {
-        // 토큰 저장 키를 'jwtToken'으로 통일
         localStorage.setItem("jwtToken", token);
-        // Bearer 접두사 포함하여 axios 기본 헤더 설정
+        eventBus.emit('loginSuccess');
         setMessage("로그인 성공!");
         history.push("/");
       } else {
@@ -40,23 +61,24 @@ const Login = () => {
     } catch (error) {
       console.error("Login error:", error);
       if (error.response) {
-        // 서버에서 보낸 에러 메시지 표시
         const errorMessage =
             error.response.data?.message || error.response.data;
         setMessage(`로그인 실패: ${errorMessage}`);
       } else if (error.request) {
-        // 요청은 보냈으나 응답을 받지 못한 경우
         setMessage("로그인 실패: 서버 응답이 없습니다.");
       } else {
-        // 요청 설정 중 에러 발생
         setMessage("로그인 실패: " + error.message);
       }
     }
   };
 
-  // 구글 로그인 핸들러
   const handleGoogleLogin = () => {
-    window.location.href = "https://api.codeness.kr/oauth2/authorization/google";
+    try {
+      window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    } catch (error) {
+      console.error("Google 로그인 오류:", error);
+      setMessage("Google 로그인 서비스에 일시적인 문제가 있습니다. 잠시 후 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -90,80 +112,85 @@ const Login = () => {
           <button onClick={handleGoogleLogin} className="google-login-button">
             Google로 로그인
           </button>
+          <p className="social-login-notice">현재 소셜로그인은 구글 인증 관련으로 허용된 사용자만 가능합니다!</p>
         </div>
 
         {message && <p className="message">{message}</p>}
 
-        {/* 인라인 스타일로 변경 */}
-        <style>
-          {`
-          .login-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-          }
+        <style jsx>{`
+       .login-container {
+         max-width: 400px;
+         margin: 0 auto;
+         padding: 20px;
+       }
 
-          .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-          }
+       .login-form {
+         display: flex;
+         flex-direction: column;
+         gap: 15px;
+       }
 
-          .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-          }
+       .form-group {
+         display: flex;
+         flex-direction: column;
+         gap: 5px;
+       }
 
-          input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-          }
+       input {
+         padding: 8px;
+         border: 1px solid #ddd;
+         border-radius: 4px;
+       }
 
-          .login-button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-          }
+       .login-button {
+         padding: 10px;
+         background-color: #007bff;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+       }
 
-          .login-button:hover {
-            background-color: #0056b3;
-          }
+       .login-button:hover {
+         background-color: #0056b3;
+       }
 
-          .social-login {
-            margin-top: 20px;
-            text-align: center;
-          }
+       .social-login {
+         margin-top: 20px;
+         text-align: center;
+       }
 
-          .google-login-button {
-            padding: 10px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            color: #4285F4 !important;  /* !important를 추가하여 우선순위 높임 */
-            font-weight: 500;
-          }
+       .google-login-button {
+         padding: 10px;
+         background-color: white;
+         border: 1px solid #ddd;
+         border-radius: 4px;
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin: 0 auto;
+         color: #4285F4 !important;
+         font-weight: 500;
+         width: 200px;
+       }
 
-          .google-login-button:hover {
-            background-color: #f5f5f5;
-          }
+       .google-login-button:hover {
+         background-color: #f5f5f5;
+       }
 
-          .message {
-            margin-top: 15px;
-            color: #dc3545;
-            text-align: center;
-          }
-        `}
-        </style>
+       .social-login-notice {
+         margin-top: 10px;
+         font-size: 13px;
+         color: #666;
+       }
+
+       .message {
+         margin-top: 15px;
+         color: #dc3545;
+         text-align: center;
+       }
+     `}</style>
       </div>
   );
 };

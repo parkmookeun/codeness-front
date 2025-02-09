@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { loginEventBus } from '../../pages/auth/Login'
 import logo from '../../assets/icons/Codeness_logo.png';
 import icon from '../../assets/icons/profile-placeholder.png';
 import './Header.css';
@@ -8,19 +9,20 @@ const Header = () => {
   const history = useHistory();
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('jwtToken'));
 
   useEffect(() => {
-    // 로그인 여부 확인
-    checkLoginStatus();
+    const loginHandler = () => {
+      setIsLoggedIn(true);
+    };
+
+    loginEventBus.on('loginSuccess', loginHandler);
+
+    return () => {
+      loginEventBus.off('loginSuccess', loginHandler);
+    };
   }, []);
 
-  const checkLoginStatus = () => {
-    const token = localStorage.getItem('jwtToken');
-    setIsLoggedIn(!!token);
-  };
-
-  // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -58,7 +60,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('jwtToken');
-    checkLoginStatus(); // 로그인 상태 업데이트
+    setIsLoggedIn(false);
     history.push('/login');
   };
 

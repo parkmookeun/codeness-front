@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import api from '../../api/axios';
+import { loginEventBus } from '../auth/Login';  // Login 컴포넌트 경로에 맞게 수정해주세요
 import MentorRecommendation from './MentorRecommendation';
 import MainNewsList from '../news/MainNews';
 import CompanyInfo from './CompanyInfo';
@@ -11,9 +12,8 @@ function Home() {
   const location = useLocation();
 
   useEffect(() => {
-    // URL에서 토큰 파라미터 확인 (소셜 로그인 리다이렉트)
     const params = new URLSearchParams(location.search);
-    const token = params.get("access_token"); // access_token으로 수정
+    const token = params.get("access_token");
 
     if (token) {
       // 토큰을 로컬 스토리지에 저장
@@ -22,17 +22,20 @@ function Home() {
       // api의 기본 헤더에 토큰 설정
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      // 로그인 후 루트('/')로 리디렉션
-      history.replace("/"); // 페이지를 루트로 리디렉션
+      // 로그인 이벤트 발생 (헤더 업데이트를 위해)
+      loginEventBus.emit('loginSuccess');
+
+      // URL 파라미터 제거
+      history.replace("/");
     }
 
-    // 로컬 스토리지에서 이미 저장된 토큰을 가져와 api 헤더 설정 (로그인 상태 유지)
+    // 로컬 스토리지에서 이미 저장된 토큰을 가져와 api 헤더 설정
     const savedToken = localStorage.getItem("jwtToken");
     if (savedToken) {
       api.defaults.headers.common["Authorization"] = `Bearer ${savedToken}`;
     }
 
-  }, [location, history]); // 의존성 배열에 location, history 추가
+  }, [location, history]);
 
   return (
       <div>
