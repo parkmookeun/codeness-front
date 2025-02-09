@@ -74,7 +74,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     try {
-      window.location.href = "http://localhost:8080/oauth2/authorization/google";
+      window.location.href = "https://api.codeness.kr/oauth2/authorization/google";
     } catch (error) {
       console.error("Google 로그인 오류:", error);
       setMessage("Google 로그인 서비스에 일시적인 문제가 있습니다. 잠시 후 다시 시도해주세요.");
