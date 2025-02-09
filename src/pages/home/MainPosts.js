@@ -37,12 +37,12 @@ const MainPosts = () => {
     }}
    >
      <h2
-     style={{ cursor: 'pointer'}}
+     style={{ cursor: 'pointer', color:'black', display: 'inline-block'}}
      onClick={() => history.push('/community')}
      >인기 게시글</h2>
      <div style={{
         width: "60%",
-        border: "2px solid gray",
+        backgroundColor: '#F8F8F8',
         borderRadius: "10px",
         padding: "10px"
      }}>
@@ -50,12 +50,15 @@ const MainPosts = () => {
       <div 
         style={{
           padding: "3px",
-          borderBottom: "1px solid gray"
+          textDecoration: 'underline'
         }}
         key={item.id}>
         <a className='news-link'
           rel='noopener noreferrer'
-          href='/community'>{item.title} {/* TODO: 나중에 이부분 상세 url로 바꿔야함! */}
+          style={{
+            cursor: 'pointer'
+          }}
+          onClick={() => history.push(`/posts/${item.id}`)}>{item.title} {/* TODO: 나중에 이부분 상세 url로 바꿔야함! */}
         </a>
       </div>
       ))}

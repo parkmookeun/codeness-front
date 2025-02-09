@@ -36,11 +36,11 @@ const MainNewsList = () => {
     }}
    >
      <h2
-     style={{ cursor: 'pointer'}}
+     style={{ cursor: 'pointer', color: 'black', display: 'inline-block'}}
      onClick={() => history.push('/news')}>최신 뉴스</h2>
      <div style={{
         width: "60%",
-        border: "2px solid gray",
+        backgroundColor: '#F8F8F8',
         borderRadius: "10px",
         padding: "10px"
      }}>
@@ -48,7 +48,7 @@ const MainNewsList = () => {
          <div 
          style={{
             padding: "3px",
-            borderBottom: "1px solid gray"
+            textDecoration: 'underline'
          }}
          key={item.id}>
          <a className='news-link'
