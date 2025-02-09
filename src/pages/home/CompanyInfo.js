@@ -26,6 +26,9 @@ const CompanyInfo = () => {
         <div>
         </div>
         <div>
+            <img src="https://codeness.s3.ap-northeast-1.amazonaws.com/codeness-team.png"></img>
+        </div>
+        <div>
         <button className="mentor-request-button" onClick={handleMentorRequest}>
             멘토 신청하러 가기
         </button>
