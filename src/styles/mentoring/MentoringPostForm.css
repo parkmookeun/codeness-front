@@ -1,61 +1,82 @@
-/* Container Styling */
-.container {
+
+.container-post {
   max-width: 600px;
   margin: auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-/* Form Header */
-.container h2 {
+  padding: 30px;
+  background-color: #ffffff;
+  border: 2px solid #78a7e1;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  box-sizing: border-box;
+  margin-top: 5%;
 }
 
-/* Form Styling */
+.mentoring-post {
+  /*max-width: 1000px;*/
+  box-sizing: border-box;
+}
+
+/* ✅ 제목 스타일 */
+.container h2 {
+  font-size: 2rem;
+  color: #639cdc;
+  margin-bottom: 20px;
+}
+
+/* ✅ 폼 스타일 */
 form {
   display: flex;
   flex-direction: column;
 }
 
-/* Form Group Styling */
+/* ✅ 폼 그룹 스타일 */
 .form-group {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
 }
 
-/* Label Styling */
 label {
-  margin-bottom: 5px;
+  font-size: 16px;
   font-weight: bold;
-  color: #555;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-/* Input and Select Styling */
+/* ✅ 입력 필드 스타일 */
 input, select, textarea {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(204, 204, 204, 0.73);
   border-radius: 5px;
   font-size: 14px;
-  width: 100%;
   box-sizing: border-box;
 }
 
-/* Input Focus State */
 input:focus, select:focus, textarea:focus {
-  border-color: #007bff;
+  border-color: #639cdc;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px rgba(99, 156, 220, 0.5);
 }
 
-/* Textarea Styling */
 textarea {
   resize: none;
   height: 100px;
 }
 
-/* Error Message Styling */
+/* 안내 메세지 */
+.form-notice{
+  font-size: 15px;
+  color: #646464;
+  display: flex;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+/* ✅ 에러 메시지 스타일 */
 .error-message {
   color: red;
   font-size: 12px;
@@ -65,36 +86,33 @@ textarea {
   border-radius: 3px;
 }
 
-/* Button Styling */
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #5e97da;
+  transform: scale(1.03);
 }
 
-/* Disabled Button Styling */
+/* ✅ 비활성 버튼 스타일 */
 button:disabled {
-  background-color: #ccc;
+  background-color: rgba(204, 204, 204, 0.83);
   cursor: not-allowed;
+  transform: none;
 }
 
-/* Responsive Design */
+/* ✅ 반응형 스타일 */
 @media (max-width: 768px) {
   .container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
     padding: 15px;
   }
 
-  button {
-    font-size: 14px;
-    padding: 8px 16px;
+  .container h2 {
+    font-size: 1.8rem;
   }
 }

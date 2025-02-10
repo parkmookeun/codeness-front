@@ -1,0 +1,106 @@
+/* ✅ 결제 페이지 전체 스타일 */
+.payment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+}
+
+/* ✅ 결제 상세 정보 컨테이너 */
+.payment-details {
+  text-align: center;
+  padding: 30px;
+  border: 2px solid #639cdc;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 350px;
+}
+
+/* ✅ 제목 스타일 */
+.payment-page h1 {
+  font-size: 2rem;
+  color: #639cdc;
+  margin-bottom: 20px;
+}
+
+/* ✅ 결제 정보 텍스트 */
+.payment-details p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+/* ✅ 버튼 공통 스타일 */
+.pay-button, .cancel-button, .back-button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  margin-top: 15px;
+  width: 100%;
+}
+
+/* ✅ 결제하기 버튼 */
+.pay-button {
+  background-color: #639cdc;
+}
+
+.pay-button:hover {
+  background-color: #4e8ad1;
+  transform: scale(1.03);
+}
+
+/* ✅ 결제 취소 버튼 */
+.cancel-button {
+  background-color: #dc6b6b;
+}
+
+.cancel-button:hover {
+  background-color: #c85656;
+  transform: scale(1.03);
+}
+
+/* ✅ 뒤로 가기 버튼 */
+.back-button {
+  background-color: #888;
+}
+
+.back-button:hover {
+  background-color: #666;
+  transform: scale(1.03);
+}
+
+/* ✅ 로딩 상태 버튼 스타일 */
+.pay-button:disabled, .cancel-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ✅ 반응형 스타일 */
+@media (max-width: 480px) {
+  .payment-details {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .payment-page h1 {
+    font-size: 1.8rem;
+  }
+
+  .payment-details p {
+    font-size: 1rem;
+  }
+
+  .pay-button, .cancel-button, .back-button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}

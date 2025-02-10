@@ -9,7 +9,9 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 250px;
   height: fit-content;
-  margin-right: 20px;
+  /*margin-right: 20px;*/
+  /*position: fixed; top:0; left:0;*/
+  /*position: sticky;*/
 }
 
 /* 제목 스타일 */

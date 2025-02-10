@@ -1,17 +1,14 @@
-/* MentoringPostDetail.css */
-
-/* 전체 페이지 레이아웃 */
+/* 전체 컨테이너 스타일 */
 .mentoring-page {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
 }
 
-/* 프로필 및 공고 정보 섹션 */
+/* 공고 상세 정보 섹션 */
 .mentor-profile {
   display: flex;
   flex-direction: row;
@@ -23,6 +20,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 800px;
+  margin-top: 3%;
 }
 
 .mentor-image-container {
@@ -39,6 +37,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 멘토 상세 정보 */
 .mentor-details {
   flex-grow: 1;
   display: flex;
@@ -47,30 +46,31 @@
 }
 
 .mentor-details h1 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  margin: 0 0 10px 0;
-  color: #333;
+  color: #639cdc;
+  margin-top: 0; /* 위쪽 여백 제거 */
 }
 
 .mentor-details h2 {
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 0 0 5px 0;
-  color: #666;
+  color: #555;
+  margin-bottom: 2px;
 }
 
 .mentor-details .post-data {
-  font-size: 0.9rem;
-  margin: 5px 0;
+  font-size: 1rem;
   color: #555;
 }
 
-
-.mentoring-info p {
-  font-size: 1rem;
-  margin: 5px 0;
-  color: #555;
+/* 별점 스타일 */
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 1.2rem;
+  color: #ffc107;
 }
 
 /* 리뷰 섹션 */
@@ -81,66 +81,63 @@
   max-width: 800px;
   background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 2px solid #639cdc;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .reviews h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  color: #333;
+  color: #639cdc;
   margin-bottom: 15px;
+  margin-top: 0; /* 위쪽 여백 제거 */
 }
 
 .review {
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 8px;
   margin-bottom: 10px;
-  background-color: #fff;
+  background-color: #ffffff;
   text-align: center;
+  transition: background-color 0.3s;
+}
+
+.review:hover {
+  background-color: #f0f4ff;
 }
 
 .review p {
   margin: 5px 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
 }
 
 .review p:first-child {
   font-weight: bold;
-  color: #3b82f6;
-}
-
-/* 별점 스타일 */
-.star-rating {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-size: 1.2rem;
-}
-
-.star-rating .filled-star {
-  color: #ffc107; /* 채워진 별 색상 */
+  color: #3C7FCC;
 }
 
 /* 멘토링 신청 버튼 */
 .apply-button {
   display: inline-block;
   padding: 12px 20px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  color: #fff;
-  background-color: #3b82f6;
+  color: #ffffff;
+  background-color: #639cdc;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 20px;
   transition: background-color 0.3s;
+  width: 100%;
+  max-width: 400px;
 }
 
 .apply-button:hover {
-  background-color: #2563eb;
+  background-color: #639cdc;
 }
 
 /* 페이지네이션 섹션 */
@@ -152,24 +149,24 @@
 }
 
 .pagination button {
-  padding: 8px 12px;
+  padding: 10px 14px;
   font-size: 14px;
   border: 1px solid #ddd;
-  background-color: #fff;
+  background-color: #ffffff;
   color: #333;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination button.active {
-  background-color: #3b82f6;
-  color: #fff;
-  border-color: #3b82f6;
+  background-color: #639cdc;
+  color: #ffffff;
+  border-color: #639cdc;
 }
 
 .pagination button:hover {
-  background-color: #f1f1f1;
+  background-color: #cadaf6;
 }
 
 /* 반응형 스타일 */
@@ -179,9 +176,8 @@
     align-items: center;
   }
 
-  .mentor-image-container {
-    margin-right: 0;
-    margin-bottom: 15px;
+  .mentor-image {
+    margin-bottom: 10px;
   }
 
   .mentor-details {
@@ -189,6 +185,6 @@
   }
 
   .mentor-details h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 }

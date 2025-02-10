@@ -12,6 +12,7 @@ const MentoringPayment = () => {
 
   // 전달된 state에서 데이터 가져오기
   const {
+    mentoringPostId,
     mentoringDate,
     mentoringTime,
     scheduleId,
@@ -96,15 +97,22 @@ const MentoringPayment = () => {
       return;
     }
 
-    await api.delete(`/payments/${paymentId}/rejection`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        impUid, // 결제 실패 시 받은 impUid 전달
-      },
-    });
-    alert("결제 거절로 인해 데이터가 삭제되었습니다.");
+    try {
+      await api.delete(`/payments/${paymentId}/rejection`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          impUid, // 결제 실패 시 받은 impUid 전달
+        },
+      });
+      alert("결제 거절로 인해 데이터가 삭제되었습니다.");
+
+      // ✅ 결제 거절 후 리다이렉트
+      history.push(`/mentoring/${location.state.mentoringPostId}/mentoring-reservation`);
+    } catch (error) {
+      console.error("결제 거절 처리 중 오류:", error);
+    }
   };
 
   // 결제 데이터 삭제 요청
@@ -114,13 +122,20 @@ const MentoringPayment = () => {
       return;
     }
 
-    await api.delete(`/payments/${paymentId}/cancel`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: {}, // 추가 데이터가 필요 없는 경우 빈 객체 전달
-    });
-    alert("결제가 취소되었습니다.");
+    try {
+      await api.delete(`/payments/${paymentId}/cancel`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {},
+      });
+      alert("결제가 취소되었습니다.");
+
+      // ✅ 결제 취소 후 리다이렉트
+      history.push(`/mentoring/${location.state.mentoringPostId}/mentoring-reservation`);
+    } catch (error) {
+      console.error("결제 취소 중 오류:", error);
+    }
   };
 
   // 뒤로가기 버튼 클릭 시 결제 삭제
@@ -139,7 +154,7 @@ const MentoringPayment = () => {
 
   return (
       <div className="payment-page">
-        <h1>Mentoring Payment</h1>
+        <h1>멘토링 공고 스케줄 결제</h1>
         <div className="payment-details">
           <p>스케줄 날짜: {mentoringDate}</p>
           <p>스케줄 시간: {mentoringTime}</p>
@@ -150,13 +165,6 @@ const MentoringPayment = () => {
               disabled={isLoading}
           >
             {isLoading ? "결제 진행 중..." : "결제하기"}
-          </button>
-          <button
-              className="back-button"
-              onClick={handleBack}
-              disabled={isLoading}
-          >
-            뒤로가기
           </button>
         </div>
       </div>

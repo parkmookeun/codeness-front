@@ -62,15 +62,15 @@ const MentoringPostDetail = () => {
               className="mentor-image"
           />
           <div className="mentor-details">
-            <h2>{mentoringPost.userNickname}</h2>
+            <h2>[멘토] {mentoringPost.userNickname}</h2>
             <h1>{mentoringPost.title}</h1>
-            <span className="post-data">{mentoringPost.company}</span>
-            <span className="post-data"><strong>Field:</strong> {mentoringPost.field}</span>
-            <span className="post-data"><strong>Career:</strong> {mentoringPost.career} years</span>
-            <span className="post-data"><strong>Region:</strong> {mentoringPost.region}</span>
-            <span className="post-data"><strong>Price:</strong> {mentoringPost.price} per hour</span>
-            <span className="post-data"><strong>Description:</strong> {mentoringPost.description}</span>
-            <span className="post-data"><strong>Average Rating:</strong>
+            <span className="post-data"><strong>회사 : </strong>{mentoringPost.company}</span>
+            <span className="post-data"><strong>분야 : </strong> {mentoringPost.field}</span>
+            <span className="post-data"><strong>커리어 : </strong> {mentoringPost.career} years</span>
+            <span className="post-data"><strong>지역 : </strong> {mentoringPost.region}</span>
+            <span className="post-data"><strong>가격 : </strong> {mentoringPost.price} per hour</span>
+            <span className="post-data"><strong>설명 : </strong> {mentoringPost.description}</span>
+            <span className="post-data"><strong>평균 별점</strong>
               <span className="star-rating">⭐ {mentoringPost.starRating}</span>
             </span>
           </div>
@@ -78,17 +78,17 @@ const MentoringPostDetail = () => {
 
         {/* 리뷰 섹션 */}
         <div className="section reviews">
-          <h2>Reviews</h2>
+          <h2>리뷰</h2>
           {reviews && reviews.length > 0 ? (
               reviews.map((review) => (
                   <div className="review" key={review.id}>
-                    <p><strong>Rating:</strong> ⭐ {review.starRating}</p>
+                    <p><strong>별점 :</strong> ⭐ {review.starRating}</p>
                     <p>{review.content}</p>
                     <p className="review-date">Created: {review.createdAt}</p>
                   </div>
               ))
           ) : (
-              <p>No reviews available.</p>
+              <p>작성된 리뷰가 없습니다.</p>
           )}
 
           {/* 페이지네이션 */}

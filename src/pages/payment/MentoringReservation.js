@@ -99,6 +99,7 @@ const MentoringReservation = () => {
         pathname: "/payment",
         search: `?mentoringDate=${selectedSchedule.mentoringDate}&mentoringTime=${selectedSchedule.mentoringTime}&scheduleId=${selectedSchedule.id}&paymentId=${paymentId}`,
         state: {
+          mentoringPostId :mentoringPostId,
           mentoringDate: selectedSchedule.mentoringDate, // 스케줄 날짜
           mentoringTime: selectedSchedule.mentoringTime, // 스케줄 시간
           scheduleId: selectedSchedule.id, // 스케줄 ID
@@ -129,9 +130,9 @@ const MentoringReservation = () => {
                 className="mentoring-profile-img"
             />
             <div className="mentoring-profile-details">
-              <p className="mentor-name">{mentoringPost?.userNickname}</p>
-              <p>{mentoringPost?.company}</p>
-              <p>가격 : {mentoringPost?.price}원</p>
+              <p className="mentor-name">[멘토] {mentoringPost?.userNickname}</p>
+              <p><strong>회사 : </strong> {mentoringPost?.company}</p>
+              <p><strong>가격 : </strong> {mentoringPost?.price}원</p>
             </div>
           </div>
 

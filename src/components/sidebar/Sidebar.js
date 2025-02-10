@@ -1,4 +1,5 @@
 const fieldMapping = {
+  "전체" : "",
   "백엔드": "BACKEND",
   "프론트엔드": "FRONTEND",
   "게임": "GAME",
@@ -18,11 +19,17 @@ const Sidebar = ({ selectedField, setSelectedField }) => {
           {fields.map((field) => (
               <li
                   key={field}
-                  className={selectedField === field ? "active" : ""}
+                  className={selectedField === fieldMapping[field] ? "active" : ""}
                   onClick={() => {
                     console.log("선택한 필드 (한글):", field);
-                    console.log("변환된 필드 (ENUM):", fieldMapping[field]); // ✅ 변환된 ENUM 값 로그
-                    setSelectedField(fieldMapping[field]); // ENUM 값으로 설정
+                    console.log("변환된 필드 (ENUM):", fieldMapping[field]);
+
+                    if (field === "전체") {
+                      // ✅ 전체 선택 시 검색어 및 상태 초기화 후 새로고침
+                      window.location.reload();
+                    } else {
+                      setSelectedField(fieldMapping[field]); // ENUM 값으로 설정
+                    }
                   }}
               >
                 {field}
@@ -34,3 +41,4 @@ const Sidebar = ({ selectedField, setSelectedField }) => {
 };
 
 export default Sidebar;
+
