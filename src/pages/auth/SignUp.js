@@ -163,6 +163,11 @@ const SignUp = () => {
             <select name="field" value={formData.field} onChange={handleChange}>
               <option value="FRONTEND">프론트엔드</option>
               <option value="BACKEND">백엔드</option>
+              <option value="GAME">게임</option>
+              <option value="AI">인공지능</option>
+              <option value="SERVER_INFRA">서버-인프라</option>
+              <option value="NETWORK_SECURITY">네트워크-보안</option>
+              <option value="EMBEDDED_SYSTEMS">임베디드</option>
             </select>
           </div>
 

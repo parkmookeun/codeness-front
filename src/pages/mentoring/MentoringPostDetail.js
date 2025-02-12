@@ -14,6 +14,16 @@ const MentoringPostDetail = () => {
   const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
   const history = useHistory(); // 페이지 이동을 위한 useHistory 추가
 
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  };
+
   //경로 변수 받아오기
   // const mentoringPostId = props.match.params.mentoringPostId;
 
@@ -57,21 +67,29 @@ const MentoringPostDetail = () => {
         {/* 공고 상세 섹션 */}
         <div className="section mentor-profile">
           <img
-              src={mentoringPost.mentorProfilePicture || DEFAULT_PROFILE_IMAGE} //TODO: 나중에 수정
+              src={mentoringPost.mentorProfilePicture
+                  || DEFAULT_PROFILE_IMAGE} //TODO: 나중에 수정
               alt="Mentor Profile"
               className="mentor-image"
           />
           <div className="mentor-details">
             <h2>[멘토] {mentoringPost.userNickname}</h2>
-            <h1>{mentoringPost.title}</h1>
-            <span className="post-data"><strong>회사 : </strong>{mentoringPost.company}</span>
-            <span className="post-data"><strong>분야 : </strong> {mentoringPost.field}</span>
-            <span className="post-data"><strong>커리어 : </strong> {mentoringPost.career} years</span>
-            <span className="post-data"><strong>지역 : </strong> {mentoringPost.region}</span>
-            <span className="post-data"><strong>가격 : </strong> {mentoringPost.price} per hour</span>
-            <span className="post-data"><strong>설명 : </strong> {mentoringPost.description}</span>
-            <span className="post-data"><strong>평균 별점</strong>
-              <span className="star-rating">⭐ {mentoringPost.starRating}</span>
+            <h1>제목 : {mentoringPost.title}</h1>
+            <span
+                className="post-data"><strong>회사 : </strong>{mentoringPost.company}</span>
+            <span
+                className="post-data"><strong>분야 : </strong> {mentoringPost.field}</span>
+            <span
+                className="post-data"><strong>커리어 : </strong> {mentoringPost.career}년</span>
+            <span
+                className="post-data"><strong>지역 : </strong> {mentoringPost.region}</span>
+            <span
+                className="post-data"><strong>가격 : </strong> {mentoringPost.price}원</span>
+            <span
+                className="post-data"><strong>설명 : </strong> {mentoringPost.description}</span>
+            <span className="post-data"><strong>평균 별점 :</strong>
+              <span className="star-rating">⭐ {mentoringPost.starRating.toFixed(
+                  1)}</span>
             </span>
           </div>
         </div>
@@ -82,9 +100,23 @@ const MentoringPostDetail = () => {
           {reviews && reviews.length > 0 ? (
               reviews.map((review) => (
                   <div className="review" key={review.id}>
-                    <p><strong>별점 :</strong> ⭐ {review.starRating}</p>
+                    <p><strong>별점 :</strong>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                          <span
+                              key={star}
+                              style={{
+                                color: star <= review.starRating ? '#FFD700'
+                                    : '#e4e5e9',
+                                fontSize: '24px'
+                              }}
+                          >
+                              ★
+                          </span>
+                      ))}
+                    </p>
                     <p>{review.content}</p>
-                    <p className="review-date">Created: {review.createdAt}</p>
+                    <p className="review-date">리뷰 생성일 : {formatDateTime(
+                        review.createdAt)}</p>
                   </div>
               ))
           ) : (

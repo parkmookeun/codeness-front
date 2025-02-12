@@ -151,7 +151,7 @@ const MentoringReservation = () => {
                       }`}
                       onClick={() => handleScheduleSelect(schedule)}
                   >
-                    {schedule.mentoringDate} - {schedule.mentoringTime}
+                    [{schedule.mentoringDate}] {schedule.mentoringTime.split(":")[0]}시
                   </li>
               ))}
             </ul>

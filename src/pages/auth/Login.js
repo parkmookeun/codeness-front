@@ -81,6 +81,10 @@ const Login = () => {
     }
   };
 
+  const handleSignUpRedirect = () => {
+    history.push("/signup");
+  };
+
   return (
       <div className="login-container">
         <h2>로그인</h2>
@@ -105,6 +109,10 @@ const Login = () => {
           </div>
           <button type="submit" className="login-button">
             로그인
+          </button>
+          <button type="button" className="signup-button"
+                  onClick={handleSignUpRedirect}>
+            회원가입
           </button>
         </form>
 
@@ -144,7 +152,7 @@ const Login = () => {
 
        .login-button {
          padding: 10px;
-         background-color: #007bff;
+         background-color: #639cdc;
          color: white;
          border: none;
          border-radius: 4px;

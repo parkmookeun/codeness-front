@@ -188,7 +188,7 @@ const WritePostPage = () => {
           }
 
           .submit-button {
-            background-color: #007bff;
+            background-color: #639cdc;
             color: white;
             flex: 5; /* 등록하기 버튼의 너비를 10% 줄임 */
           }
@@ -233,7 +233,7 @@ const WritePostPage = () => {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #639cdc;
             color: white;
             cursor: pointer;
           }

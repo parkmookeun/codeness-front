@@ -209,7 +209,7 @@ const CommunityPage = () => {
           }
 
           .tab-button.active {
-            background-color: #007bff;
+            background-color: #639cdc;
             color: white;
           }
 
@@ -246,7 +246,7 @@ const CommunityPage = () => {
           .search-button {
             padding: 0;
             margin-left: 8px;
-            background-color: #007bff;
+            background-color: #639cdc;
             color: white;
             border: none;
             border-radius: 10px;
@@ -262,7 +262,7 @@ const CommunityPage = () => {
           .write-button {
             padding: 0;
             margin-left: 10px;
-            background-color: #007bff;
+            background-color: #639cdc;
             color: white;
             border: none;
             border-radius: 10px;
@@ -290,7 +290,7 @@ const CommunityPage = () => {
           .page-button {
             padding: 10px 15px;
             margin: 0 5px;
-            background-color: #007bff !important;
+            background-color: #639cdc !important;
             color: white !important;
             border: none !important;
             border-radius: 10px !important;
@@ -306,13 +306,13 @@ const CommunityPage = () => {
           }
 
           .clickable-title:hover {
-            color: #0056b3;
+            color: #1562b9;
           }
 
           .page-button {
             padding: 10px 15px;
             margin: 0 5px;
-            background-color: #007bff !important;
+            background-color: #639cdc !important;
             color: white !important;
             border: none !important;
             border-radius: 10px !important;
