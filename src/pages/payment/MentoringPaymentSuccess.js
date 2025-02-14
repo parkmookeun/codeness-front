@@ -7,10 +7,8 @@ const MentoringPaymentSuccess = () => {
   const location = useLocation();
   const history = useHistory();
 
-  // ✅ 결제 성공 후 넘어오는 정보 (paymentHistoryId 추가)
   const { mentorNickname, mentoringDate, mentoringTime, paymentHistoryId } = location.state || {};
 
-  // ✅ 캘린더 일정 추가 함수
   const addToCalendar = async () => {
     try {
       // 날짜 데이터 생성 및 검증
@@ -24,10 +22,10 @@ const MentoringPaymentSuccess = () => {
 
       // 일정 추가 요청 데이터 구성
       const eventData = {
-        summary: `멘토링 - ${mentorNickname}`,
-        description: `${mentorNickname} 멘토님과의 멘토링`,
-        startTime: startDate.toISOString(),
-        endTime: endDate.toISOString(),
+        title: `멘토링 - ${mentorNickname}`,
+        content: `${mentorNickname} 멘토님과의 멘토링`,
+        startDateTime: startDate.toISOString().replace('Z', ''),  // Z 제거
+        endDateTime: endDate.toISOString().replace('Z', ''),      // Z 제거
       };
 
       console.log("📅 캘린더 요청 데이터:", eventData);
@@ -35,7 +33,7 @@ const MentoringPaymentSuccess = () => {
       const response = await api.post("/users/schedule", eventData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
 
@@ -46,23 +44,22 @@ const MentoringPaymentSuccess = () => {
       }
     } catch (error) {
       console.error("❌ 캘린더 일정 추가 실패:", error);
+      console.log(response.data);
       // alert("캘린더 일정 추가에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
     }
   };
 
-  // ✅ 채팅방 생성 함수 (paymentHistoryId 포함)
   const createChatRoom = async () => {
     try {
       if (!paymentHistoryId) {
         throw new Error("결제 내역 ID가 없습니다. 채팅방을 생성할 수 없습니다.");
       }
 
-      // 채팅방 생성 요청 데이터
       const chatRoomData = {
         mentorNickname,
         mentoringDate,
         mentoringTime,
-        paymentHistoryId, // ✅ 필수 데이터
+        paymentHistoryId,
       };
 
       console.log("💬 채팅방 요청 데이터:", chatRoomData);
@@ -70,7 +67,7 @@ const MentoringPaymentSuccess = () => {
       const response = await api.post("/chat-rooms", chatRoomData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
 
@@ -85,7 +82,6 @@ const MentoringPaymentSuccess = () => {
     }
   };
 
-  // ✅ 확인 버튼 클릭 시 실행 (캘린더 추가 & 채팅방 생성 후 마이페이지 이동)
   const handleConfirm = async () => {
     if (!paymentHistoryId) {
       alert("멘토링 정보가 부족하여 처리를 진행할 수 없습니다.");
@@ -95,7 +91,7 @@ const MentoringPaymentSuccess = () => {
     try {
       await addToCalendar();
       await createChatRoom();
-      history.push("/mypage/profile"); // ✅ 모든 작업 완료 후 마이페이지로 이동
+      history.push("/mypage/profile");
     } catch (error) {
       console.error("⚠️ 확인 버튼 처리 중 오류 발생:", error);
     }
