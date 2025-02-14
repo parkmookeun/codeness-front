@@ -44,8 +44,7 @@ const MentoringPaymentSuccess = () => {
       }
     } catch (error) {
       console.error("❌ 캘린더 일정 추가 실패:", error);
-      console.log(response.data);
-      // alert("캘린더 일정 추가에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
+      alert("캘린더 일정 추가에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
     }
   };
 
