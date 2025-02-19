@@ -7,8 +7,10 @@ const MentoringPaymentSuccess = () => {
   const location = useLocation();
   const history = useHistory();
 
+  // ✅ 결제 성공 후 넘어오는 정보 (paymentHistoryId 추가)
   const { mentorNickname, mentoringDate, mentoringTime, paymentHistoryId } = location.state || {};
 
+  // ✅ 캘린더 일정 추가 함수
   const addToCalendar = async () => {
     try {
       // 날짜 데이터 생성 및 검증
@@ -44,43 +46,49 @@ const MentoringPaymentSuccess = () => {
       }
     } catch (error) {
       console.error("❌ 캘린더 일정 추가 실패:", error);
-      alert("캘린더 일정 추가에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
+      /**
+       * todo : 결제 검증 후 채팅방 api 따로 호출하기
+       */
+      // alert("캘린더 일정 추가에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
     }
   };
 
-  const createChatRoom = async () => {
-    try {
-      if (!paymentHistoryId) {
-        throw new Error("결제 내역 ID가 없습니다. 채팅방을 생성할 수 없습니다.");
-      }
+  // ✅ 채팅방 생성 함수 (paymentHistoryId 포함)
+  // const createChatRoom = async () => {
+  //   try {
+  //     if (!paymentHistoryId) {
+  //       throw new Error("결제 내역 ID가 없습니다. 채팅방을 생성할 수 없습니다.");
+  //     }
+  //
+  //     // 채팅방 생성 요청 데이터
+  //     const chatRoomData = {
+  //       mentorNickname,
+  //       mentoringDate,
+  //       mentoringTime,
+  //       paymentHistoryId, // ✅ 필수 데이터
+  //     };
+  //
+  //     console.log("💬 채팅방 요청 데이터:", chatRoomData);
+  //
+  //     const response = await api.post("/chat-rooms", chatRoomData, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //       },
+  //     });
+  //
+  //     if (response.data) {
+  //       console.log("✅ 채팅방 생성 성공:", response.data);
+  //     } else {
+  //       throw new Error("채팅방 생성 실패: 서버 응답이 비어있습니다");
+  //     }
+  //   } catch (error) {
+  //     console.error("❌ 채팅방 생성 실패:", error);
+  //     alert("채팅방 생성에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
+  //   }
+  // };
 
-      const chatRoomData = {
-        mentorNickname,
-        mentoringDate,
-        mentoringTime,
-        paymentHistoryId,
-      };
-
-      console.log("💬 채팅방 요청 데이터:", chatRoomData);
-
-      const response = await api.post("/chat-rooms", chatRoomData, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-
-      if (response.data) {
-        console.log("✅ 채팅방 생성 성공:", response.data);
-      } else {
-        throw new Error("채팅방 생성 실패: 서버 응답이 비어있습니다");
-      }
-    } catch (error) {
-      console.error("❌ 채팅방 생성 실패:", error);
-      alert("채팅방 생성에 실패했습니다. 마이페이지에서 다시 시도해주세요.");
-    }
-  };
-
+  // ✅ 확인 버튼 클릭 시 실행 (캘린더 추가 & 채팅방 생성 후 마이페이지 이동)
   const handleConfirm = async () => {
     if (!paymentHistoryId) {
       alert("멘토링 정보가 부족하여 처리를 진행할 수 없습니다.");
@@ -89,7 +97,7 @@ const MentoringPaymentSuccess = () => {
 
     try {
       await addToCalendar();
-      await createChatRoom();
+      // await createChatRoom();
       history.push("/mypage/profile");
     } catch (error) {
       console.error("⚠️ 확인 버튼 처리 중 오류 발생:", error);
@@ -105,7 +113,7 @@ const MentoringPaymentSuccess = () => {
 
             <div className="mentoring-info">
               <p>
-                <strong>멘토:</strong> {mentorNickname || "정보 없음"}
+                {/*<strong>멘토:</strong> {mentorNickname || "정보 없음"}*/}
               </p>
               <p>
                 <strong>멘토링 날짜:</strong> {mentoringDate || "정보 없음"}
